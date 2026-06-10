@@ -1,14 +1,36 @@
+import { Navbar, Footer } from './components/layout';
+import {
+  HeroSection,
+  ProdukSection,
+  TentangSection,
+  PortfolioSection,
+  AlurSection,
+  KontakSection,
+} from './components/sections';
+
+// ============================================================
+// App — Main entry point, merakit semua sections
+// ============================================================
+
 const App = () => {
   return (
-    <div>
-      <h1 
-        className="font-bold text-red-900 text-4xl"
-      >
-        HELOO KONTOLLLLL
-      </h1>
-      <p className="text-blue-500 mt-4">Testing Tailwind</p>
-    </div>
-  )
-}
+    <div className="overflow-x-hidden min-h-screen font-sans antialiased">
+      {/* Layout */}
+      <Navbar />
 
-export default App
+      {/* Page Sections */}
+      <main>
+        <HeroSection />
+        <ProdukSection />
+        <TentangSection />
+        <PortfolioSection />
+        <AlurSection />
+        <KontakSection />
+      </main>
+
+      <Footer />
+    </div>
+  );
+};
+
+export default App;
