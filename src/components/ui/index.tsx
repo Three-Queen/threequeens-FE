@@ -7,6 +7,7 @@ interface SectionHeaderProps {
   title: string;
   subtitle?: string;
   align?: 'left' | 'center' | 'right';
+  titleClassName?: string;
 }
 
 export const SectionHeader = ({
@@ -14,6 +15,7 @@ export const SectionHeader = ({
   title,
   subtitle,
   align = 'center',
+  titleClassName = 'text-stone-900',
 }: SectionHeaderProps) => {
   const alignClass = {
     left: 'text-left',
@@ -28,7 +30,7 @@ export const SectionHeader = ({
           {badge}
         </span>
       )}
-      <h2 className="text-3xl sm:text-4xl font-bold text-stone-900 mb-3">{title}</h2>
+      <h2 className={`text-3xl sm:text-4xl font-bold mb-3 ${titleClassName}`}>{title}</h2>
       {subtitle && (
         <p className="text-stone-500 text-base max-w-xl mx-auto leading-relaxed">{subtitle}</p>
       )}
@@ -83,3 +85,7 @@ export const Button = ({
     </button>
   );
 };
+
+export * from './Skeleton';
+export * from './Icons';
+

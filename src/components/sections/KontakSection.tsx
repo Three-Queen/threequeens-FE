@@ -1,51 +1,88 @@
 import { useState } from 'react';
-import { CONTACT_INFO, SOCIAL_LINKS } from '../../constants';
+import { useLandingData } from '../../context/LandingDataContext';
+import {
+  SectionHeader,
+  LocationIcon,
+  PhoneIcon,
+  EmailIcon,
+  ClockIcon,
+  InstagramIcon,
+  FacebookIcon,
+  WhatsAppIcon,
+} from '../ui';
 
 // ============================================================
 // Kontak Section
 // ============================================================
 
 const KontakSection = () => {
+  const { data, submitMessage } = useLandingData();
+  const { kontak } = data;
   const [form, setForm] = useState({ name: '', phone: '', message: '' });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const wa = `https://wa.me/6281234567890?text=Halo%20Three%20Queens%2C%20saya%20${encodeURIComponent(form.name)}%20ingin%20konsultasi.%20${encodeURIComponent(form.message)}`;
+
+    // Submit message to backend REST API
+    await submitMessage({
+      name: form.name,
+      email: '', // Not required by frontend UI
+      phone: form.phone,
+      message: form.message,
+    });
+
+    // Format WhatsApp number: strip non-digits and ensure it starts with 62
+    let formattedWA = kontak.whatsapp.replace(/[^0-9]/g, '');
+    if (formattedWA.startsWith('0')) {
+      formattedWA = '62' + formattedWA.slice(1);
+    }
+    if (!formattedWA) {
+      formattedWA = '6281234567890'; // Fallback
+    }
+
+    const wa = `https://wa.me/${formattedWA}?text=Halo%20Three%20Queens%2C%20saya%20${encodeURIComponent(form.name)}%20ingin%20konsultasi.%20${encodeURIComponent(form.message)}`;
     window.open(wa, '_blank');
   };
+
+  const dynamicContactInfo = [
+    { icon: <LocationIcon className="w-5 h-5 text-amber-700" />, label: 'Alamat', value: kontak.lokasi },
+    { icon: <PhoneIcon className="w-5 h-5 text-amber-700" />, label: 'Telepon', value: kontak.whatsapp },
+    { icon: <EmailIcon className="w-5 h-5 text-amber-700" />, label: 'Email', value: kontak.email },
+    { icon: <ClockIcon className="w-5 h-5 text-amber-700" />, label: 'Jam Operasional', value: kontak.jam_kerja },
+  ];
+
+  const dynamicSocialLinks = [
+    { platform: 'Instagram', href: kontak.instagram || '#', icon: <InstagramIcon className="w-5 h-5" /> },
+    { platform: 'Facebook', href: kontak.facebook || '#', icon: <FacebookIcon className="w-5 h-5" /> },
+    { platform: 'WhatsApp', href: `https://wa.me/${kontak.whatsapp.replace(/[^0-9]/g, '')}`, icon: <WhatsAppIcon className="w-5 h-5" /> },
+  ];
 
   return (
     <section id="kontak" className="py-20 bg-stone-50">
       <div className="max-w-7xl mx-auto px-20">
 
         {/* Section Header */}
-        <div className="text-center mb-14">
-          <span className="inline-block bg-amber-100 text-amber-700 text-xs font-semibold px-4 py-1.5 rounded-full uppercase tracking-wide mb-3">
-            Hubungi Kami
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-stone-900 mb-3">
-            Kontak
-          </h2>
-          <p className="text-stone-500 max-w-xl mx-auto text-base">
-            Kami siap membantu mewujudkan ruangan impian Anda. Hubungi kami kapan saja!
-          </p>
-        </div>
+        <SectionHeader
+          badge="Hubungi Kami"
+          title="Kontak"
+          subtitle="Kami siap membantu mewujudkan ruangan impian Anda. Hubungi kami kapan saja!"
+        />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
 
           {/* Contact Info */}
           <div className="space-y-6">
             <div className="space-y-4">
-              {CONTACT_INFO.map((info) => (
+              {dynamicContactInfo.map((info) => (
                 <div
                   key={info.label}
                   className="flex items-start gap-4 p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200"
                 >
-                  <div className="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0 text-xl">
+                  <div className="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0">
                     {info.icon}
                   </div>
                   <div>
@@ -60,7 +97,7 @@ const KontakSection = () => {
             <div className="p-4 bg-white rounded-xl shadow-sm">
               <p className="text-xs text-stone-400 font-medium uppercase tracking-wide mb-3">Ikuti Kami</p>
               <div className="flex items-center gap-3">
-                {SOCIAL_LINKS.map((social) => (
+                {dynamicSocialLinks.map((social) => (
                   <a
                     key={social.platform}
                     href={social.href}
@@ -130,9 +167,10 @@ const KontakSection = () => {
               </div>
               <button
                 type="submit"
-                className="w-full bg-amber-700 hover:bg-amber-800 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
+                className="w-full bg-amber-700 hover:bg-amber-800 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2"
               >
-                💬 Kirim via WhatsApp
+                <WhatsAppIcon className="w-5 h-5" />
+                <span>Kirim via WhatsApp</span>
               </button>
             </form>
           </div>

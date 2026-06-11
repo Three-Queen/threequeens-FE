@@ -14,6 +14,9 @@ export interface Product {
   image: string;
   price?: string;
   description?: string;
+  desain2d?: string | null;
+  desain3d?: string | null;
+  pengerjaan?: string | null;
 }
 
 export interface Project {
@@ -21,12 +24,15 @@ export interface Project {
   title: string;
   location: string;
   image: string;
+  description?: string;
+  category?: string;
 }
 
 export interface OrderStep {
   step: number;
   title: string;
   description: string;
+  icon?: string;
 }
 
 export interface ContactInfo {

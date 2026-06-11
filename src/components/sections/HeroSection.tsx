@@ -1,16 +1,27 @@
 import bgImage from '../../assets/images/welcome-screen.png';
+import { useLandingData } from '../../context/LandingDataContext';
 
 // ============================================================
 // Hero Section
 // ============================================================
 
 const HeroSection = () => {
+  const { data } = useLandingData();
+  const { beranda } = data;
+
+  const backgroundUrl = beranda.background || bgImage;
+
+  // Split title into two parts for two-tone color effect
+  const titleParts = beranda.title.split(' ');
+  const firstPart = titleParts[0] || 'Three';
+  const secondPart = titleParts.slice(1).join(' ') || 'Queens';
+
   return (
     <section
       id="beranda"
       className="relative min-h-screen flex items-center justify-end overflow-hidden"
       style={{
-        backgroundImage: `url(${bgImage})`,
+        backgroundImage: `url(${backgroundUrl})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
@@ -22,15 +33,10 @@ const HeroSection = () => {
       <div className="relative z-10 w-full max-w-7xl mx-auto px-20 flex justify-end">
         <div className="max-w-[700px] text-right mt-10">
           <h1 className="text-6xl sm:text-7xl font-extrabold tracking-tight mb-4">
-            <span className="text-white">Three</span><span className="text-[#3A1F0D]">Queens</span>
+            <span className="text-white">{firstPart} </span><span className="text-[#3A1F0D]">{secondPart}</span>
           </h1>
           <p className="text-white text-base sm:text-lg leading-relaxed text-right font-medium drop-shadow-sm">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-            dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-            sunt in culpa qui officia deserunt mollit anim id est laborum
+            {beranda.deskripsi}
           </p>
         </div>
       </div>

@@ -1,6 +1,16 @@
-import { CONTACT_INFO, SOCIAL_LINKS, FOOTER_LINKS, NAV_ITEMS } from '../../constants';
+import { FOOTER_LINKS, NAV_ITEMS } from '../../constants';
 import { useSmoothScroll } from '../../hooks';
+import { useLandingData } from '../../context/LandingDataContext';
 import logoImg from '../../assets/images/Logo.png';
+import {
+  LocationIcon,
+  PhoneIcon,
+  EmailIcon,
+  ClockIcon,
+  InstagramIcon,
+  FacebookIcon,
+  WhatsAppIcon,
+} from '../ui';
 
 // ============================================================
 // Footer Component
@@ -8,6 +18,21 @@ import logoImg from '../../assets/images/Logo.png';
 
 const Footer = () => {
   const { scrollTo } = useSmoothScroll();
+  const { data } = useLandingData();
+  const { kontak } = data;
+
+  const dynamicContactInfo = [
+    { icon: <LocationIcon className="w-5 h-5 text-amber-500" />, label: 'Alamat', value: kontak.lokasi },
+    { icon: <PhoneIcon className="w-5 h-5 text-amber-500" />, label: 'Telepon', value: kontak.whatsapp },
+    { icon: <EmailIcon className="w-5 h-5 text-amber-500" />, label: 'Email', value: kontak.email },
+    { icon: <ClockIcon className="w-5 h-5 text-amber-500" />, label: 'Jam Operasional', value: kontak.jam_kerja },
+  ];
+
+  const dynamicSocialLinks = [
+    { platform: 'Instagram', href: kontak.instagram || '#', icon: <InstagramIcon className="w-5 h-5" /> },
+    { platform: 'Facebook', href: kontak.facebook || '#', icon: <FacebookIcon className="w-5 h-5" /> },
+    { platform: 'WhatsApp', href: `https://wa.me/${kontak.whatsapp.replace(/[^0-9]/g, '')}`, icon: <WhatsAppIcon className="w-5 h-5" /> },
+  ];
 
   return (
     <footer className="bg-stone-900 text-stone-300">
@@ -29,12 +54,12 @@ const Footer = () => {
             </p>
             {/* Social Links */}
             <div className="flex items-center gap-3">
-              {SOCIAL_LINKS.map((social) => (
+              {dynamicSocialLinks.map((social) => (
                 <a
                   key={social.platform}
                   href={social.href}
                   aria-label={social.platform}
-                  className="w-9 h-9 rounded-full bg-stone-700 hover:bg-amber-700 flex items-center justify-center text-base transition-colors duration-200"
+                  className="w-9 h-9 rounded-full bg-stone-700 hover:bg-amber-700 flex items-center justify-center transition-colors duration-200 text-stone-300 hover:text-white"
                 >
                   {social.icon}
                 </a>
@@ -86,9 +111,9 @@ const Footer = () => {
               Kontak
             </h4>
             <ul className="space-y-3">
-              {CONTACT_INFO.map((info) => (
-                <li key={info.label} className="flex items-start gap-2">
-                  <span className="text-base mt-0.5">{info.icon}</span>
+              {dynamicContactInfo.map((info) => (
+                <li key={info.label} className="flex items-start gap-2.5">
+                  <span className="flex-shrink-0 mt-1">{info.icon}</span>
                   <div>
                     <p className="text-xs text-stone-500">{info.label}</p>
                     <p className="text-sm text-stone-300">{info.value}</p>

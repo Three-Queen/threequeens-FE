@@ -32,26 +32,67 @@ export const PROJECTS: Project[] = [
 ];
 
 export const ORDER_STEPS: OrderStep[] = [
-  { step: 1, title: 'Survey Lokasi', description: 'Tim kami melakukan survei ke lokasi Anda untuk pengukuran dan konsultasi desain.' },
-  { step: 2, title: 'Desain', description: 'Kami membuat desain 3D sesuai kebutuhan dan selera Anda.' },
-  { step: 3, title: 'Persetujuan', description: 'Anda mereview dan menyetujui desain yang telah dibuat.' },
-  { step: 4, title: 'Produksi', description: 'Proses produksi menggunakan material berkualitas tinggi.' },
-  { step: 5, title: 'Instalasi', description: 'Tim profesional kami melakukan instalasi di lokasi Anda.' },
-  { step: 6, title: 'Finishing', description: 'Pengecekan akhir dan serah terima hasil pekerjaan.' },
-  { step: 7, title: 'Purna Jual', description: 'Garansi dan layanan purna jual untuk kepuasan Anda.' },
+  {
+    step: 1,
+    title: 'Survei Lokasi',
+    icon: 'survei',
+    description: 'Tim kami melakukan kunjungan langsung ke lokasi untuk pengukuran akurat dan analisa kondisi ruang.'
+  },
+  {
+    step: 2,
+    title: 'Perhitungan Estimasi',
+    icon: 'estimasi',
+    description: 'Menghitung estimasi biaya berdasarkan dimensi, material pilihan, dan kompleksitas desain.'
+  },
+  {
+    step: 3,
+    title: 'Desain',
+    icon: 'desain',
+    description: 'Pembuatan desain 2D dan rendering 3D yang detail sehingga Anda bisa membayangkan hasil akhirnya.'
+  },
+  {
+    step: 4,
+    title: 'Penawaran',
+    icon: 'penawaran',
+    description: 'Penyampaian proposal lengkap berisi spesifikasi teknis, material, dan estimasi biaya keseluruhan.'
+  },
+  {
+    step: 5,
+    title: 'Negosiasi',
+    icon: 'negosiasi',
+    description: 'Diskusi terbuka mengenai harga, spesifikasi, dan detail lainnya hingga tercapai kesepakatan.'
+  },
+  {
+    step: 6,
+    title: 'Produksi',
+    icon: 'produksi',
+    description: 'Pengerjaan furniture dilakukan di workshop kami dengan standar kualitas tinggi dan penuh presisi.'
+  },
+  {
+    step: 7,
+    title: 'Instalasi',
+    icon: 'instalasi',
+    description: 'Tim installer profesional memasang furniture di lokasi dengan rapi, bersih, dan tepat waktu.'
+  },
+  {
+    step: 8,
+    title: 'Pelunasan',
+    icon: 'pelunasan',
+    description: 'Penyelesaian pembayaran dilakukan setelah Anda puas dengan hasil pemasangan dan pekerjaan.'
+  }
 ];
 
 export const CONTACT_INFO: ContactInfo[] = [
-  { icon: '📍', label: 'Alamat', value: 'Jl. Contoh No. 123, Jakarta Selatan' },
-  { icon: '📞', label: 'Telepon', value: '+62 812-3456-7890' },
-  { icon: '✉️', label: 'Email', value: 'info@threequeens.id' },
-  { icon: '🕐', label: 'Jam Operasional', value: 'Senin - Sabtu, 08.00 - 17.00 WIB' },
+  { icon: 'alamat', label: 'Alamat', value: 'Jl. Contoh No. 123, Jakarta Selatan' },
+  { icon: 'telepon', label: 'Telepon', value: '+62 812-3456-7890' },
+  { icon: 'email', label: 'Email', value: 'info@threequeens.id' },
+  { icon: 'jam_kerja', label: 'Jam Operasional', value: 'Senin - Sabtu, 08.00 - 17.00 WIB' },
 ];
 
 export const SOCIAL_LINKS: SocialLink[] = [
-  { platform: 'Instagram', href: '#', icon: '📸' },
-  { platform: 'Facebook', href: '#', icon: '👤' },
-  { platform: 'WhatsApp', href: '#', icon: '💬' },
+  { platform: 'Instagram', href: '#', icon: 'instagram' },
+  { platform: 'Facebook', href: '#', icon: 'facebook' },
+  { platform: 'WhatsApp', href: '#', icon: 'whatsapp' },
 ];
 
 export const FOOTER_LINKS = {

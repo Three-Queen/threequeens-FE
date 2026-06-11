@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 /**
  * Hook to detect scroll position for sticky navbar effects
@@ -19,10 +20,17 @@ export const useScrolled = (threshold = 80) => {
  * Hook to handle smooth scroll to section
  */
 export const useSmoothScroll = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const scrollTo = (href: string) => {
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (location.pathname !== '/') {
+      navigate('/' + href);
+    } else {
+      const target = document.querySelector(href);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }
   };
   return { scrollTo };

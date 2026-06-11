@@ -1,62 +1,75 @@
-import { PROJECTS } from '../../constants';
+import { useLandingData } from '../../context/LandingDataContext';
+import { SectionHeader, ProjectCardSkeleton } from '../ui';
 
 // ============================================================
 // Portfolio Section
 // ============================================================
 
 const PortfolioSection = () => {
+  const { data, loading } = useLandingData();
+  const { portfolios } = data;
+
   return (
-    <section id="portfolio" className="py-20 bg-stone-100">
+    <section id="portfolio" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-20">
 
         {/* Section Header */}
-        <div className="text-center mb-14">
-          <span className="inline-block bg-amber-100 text-amber-700 text-xs font-semibold px-4 py-1.5 rounded-full uppercase tracking-wide mb-3">
-            Hasil Karya Kami
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-stone-900 mb-3">
-            Portofolio Proyek
-          </h2>
-          <p className="text-stone-500 max-w-xl mx-auto text-base">
-            Beberapa proyek unggulan yang telah kami kerjakan dengan penuh dedikasi dan profesionalisme.
-          </p>
-        </div>
+        <SectionHeader
+          title="Portofolio Proyek"
+          subtitle="Setiap proyek adalah hasil kolaborasi dengan pelanggan untuk mencapai ruang impian mereka"
+        />
 
-        {/* Masonry-style Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {PROJECTS.map((project, index) => (
-            <div
-              key={project.id}
-              className={`group relative rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 cursor-pointer ${
-                index === 0 ? 'sm:col-span-2 sm:row-span-2' : ''
-              }`}
-            >
-              {/* Image */}
+        {/* 3-Column Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {loading ? (
+            Array.from({ length: 6 }).map((_, index) => (
+              <ProjectCardSkeleton key={index} />
+            ))
+          ) : (
+            portfolios.map((project) => (
               <div
-                className={`bg-gradient-to-br from-stone-300 to-amber-200 flex items-center justify-center ${
-                  index === 0 ? 'h-72 sm:h-full min-h-[280px]' : 'h-44'
-                }`}
+                key={project.id}
+                className="bg-white border border-[#E5E7EB] flex flex-col hover:shadow-md transition-shadow duration-300 rounded-sm overflow-hidden"
               >
-                <span className="text-stone-500 text-sm">Foto Proyek</span>
+                {/* Image Area */}
+                <div className="w-full aspect-[4/3] bg-stone-100 flex items-center justify-center overflow-hidden">
+                  {project.image ? (
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                    />
+                  ) : (
+                    <div className="text-stone-400 text-sm">Image Placeholder</div>
+                  )}
+                </div>
+
+                {/* Content Area */}
+                <div className="p-5 flex flex-col flex-grow">
+                  <span className="text-[#C18F76] text-[11px] font-semibold uppercase tracking-wider mb-2">
+                    {project.category || 'LIVING ROOM'}
+                  </span>
+                  <h3 className="font-extrabold text-[#111827] text-[16px] mb-2 leading-snug">
+                    {project.title}
+                  </h3>
+                  {project.description && (
+                    <p className="text-stone-500 text-[13px] leading-relaxed mb-4 line-clamp-2">
+                      {project.description}
+                    </p>
+                  )}
+                  
+                  {/* Location Footer */}
+                  <div className="mt-auto pt-3 border-t border-[#E5E7EB] flex items-center gap-1.5 text-stone-500 text-[13px]">
+                    <svg className="w-4 h-4 text-stone-400 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    <span>{project.location}</span>
+                  </div>
+                </div>
               </div>
-
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-stone-900/80 via-stone-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-              {/* Info */}
-              <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                <h3 className="text-white font-semibold text-base">{project.title}</h3>
-                <p className="text-amber-300 text-xs mt-0.5">📍 {project.location}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* CTA */}
-        <div className="text-center mt-10">
-          <button className="border-2 border-amber-700 text-amber-700 hover:bg-amber-700 hover:text-white font-semibold px-8 py-3 rounded-full transition-all duration-200">
-            Lihat Semua Portofolio
-          </button>
+            ))
+          )}
         </div>
       </div>
     </section>

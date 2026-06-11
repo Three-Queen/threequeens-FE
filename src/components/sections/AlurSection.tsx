@@ -1,72 +1,91 @@
 import { ORDER_STEPS } from '../../constants';
-import { useSmoothScroll } from '../../hooks';
+import {
+  SectionHeader,
+  MapIcon,
+  CalculatorIcon,
+  DesignIcon,
+  DocumentIcon,
+  HandshakeIcon,
+  FactoryIcon,
+  ToolsIcon,
+  CreditCardIcon,
+} from '../ui';
 
 // ============================================================
 // Alur Pesanan Section
 // ============================================================
 
-const AlurSection = () => {
-  const { scrollTo } = useSmoothScroll();
+const getStepIcon = (stepNumber: number) => {
+  const iconClass = "w-5 h-5 text-[#A67558] flex-shrink-0";
+  switch (stepNumber) {
+    case 1: return <MapIcon className={iconClass} />;
+    case 2: return <CalculatorIcon className={iconClass} />;
+    case 3: return <DesignIcon className={iconClass} />;
+    case 4: return <DocumentIcon className={iconClass} />;
+    case 5: return <HandshakeIcon className={iconClass} />;
+    case 6: return <FactoryIcon className={iconClass} />;
+    case 7: return <ToolsIcon className={iconClass} />;
+    case 8: return <CreditCardIcon className={iconClass} />;
+    default: return null;
+  }
+};
 
+const AlurSection = () => {
   return (
-    <section id="alur" className="py-20 bg-white">
+    <section id="alur" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-20">
 
         {/* Section Header */}
-        <div className="text-center mb-14">
-          <span className="inline-block bg-amber-100 text-amber-700 text-xs font-semibold px-4 py-1.5 rounded-full uppercase tracking-wide mb-3">
-            Cara Pemesanan
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-stone-900 mb-3">
-            Alur Pesanan
-          </h2>
-          <p className="text-stone-500 max-w-xl mx-auto text-base">
-            Proses pemesanan yang mudah dan transparan dari awal hingga furniture terpasang di rumah Anda.
-          </p>
+        <SectionHeader
+          title="Alur Pesanan"
+          subtitle="Proses yang transparan dan profesional dari awal hingga akhir."
+        />
+
+        {/* Timeline Container */}
+        <div className="relative mt-16 max-w-5xl mx-auto">
+          {/* Central Vertical Line (Desktop) */}
+          <div className="absolute left-1/2 top-4 bottom-4 w-0.5 bg-stone-200 transform -translate-x-1/2 z-0 hidden lg:block" />
+          
+          {/* Left Vertical Line (Mobile) */}
+          <div className="absolute left-[30px] top-4 bottom-4 w-0.5 bg-stone-200 z-0 block lg:hidden" />
+          
+          {/* Step Rows */}
+          <div className="space-y-12 lg:space-y-8">
+            {ORDER_STEPS.map((step, index) => {
+              const isEven = index % 2 === 1;
+              return (
+                <div 
+                  key={step.step} 
+                  className="relative flex flex-col lg:flex-row items-start lg:items-center w-full min-h-[90px]"
+                >
+                  {/* Step Circle Badge */}
+                  <div className="absolute left-[12px] lg:left-1/2 transform lg:-translate-x-1/2 top-1.5 lg:top-1/2 lg:-translate-y-1/2 z-10 w-9 h-9 bg-[#A67558] text-[#FCEEE3] text-[13px] font-bold rounded-full flex items-center justify-center border-[3px] border-[#F5E5D9] shadow-sm">
+                    {step.step}
+                  </div>
+
+                  {/* Dotted Connecting Line (Desktop) */}
+                  {!isEven ? (
+                    <div className="hidden lg:block absolute right-[calc(50%+18px)] top-1/2 w-[80px] h-0 border-t-2 border-dashed border-stone-200 -translate-y-1/2 z-0" />
+                  ) : (
+                    <div className="hidden lg:block absolute left-[calc(50%+18px)] top-1/2 w-[80px] h-0 border-t-2 border-dashed border-stone-200 -translate-y-1/2 z-0" />
+                  )}
+
+                  {/* Content Block */}
+                  <div className={`w-full pl-16 pr-4 lg:px-0 lg:w-1/2 ${!isEven ? 'lg:pr-20 lg:text-right' : 'lg:pl-20 lg:text-left lg:ml-auto'}`}>
+                    <h3 className={`font-bold text-[#4A2612] text-lg flex items-center gap-2 mb-1.5 ${!isEven ? 'lg:justify-end lg:flex-row-reverse' : 'lg:justify-start'}`}>
+                      {getStepIcon(step.step)}
+                      <span>{step.title}</span>
+                    </h3>
+                    <p className="text-stone-500 text-[13.5px] leading-relaxed max-w-[420px] lg:max-w-none mx-auto lg:mx-0">
+                      {step.description}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
-        {/* Steps */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {ORDER_STEPS.map((step, index) => (
-            <div
-              key={step.step}
-              className="relative group p-6 bg-stone-50 rounded-2xl hover:bg-amber-50 hover:shadow-md transition-all duration-300"
-            >
-              {/* Connector Line (desktop) */}
-              {index < ORDER_STEPS.length - 1 && (
-                <div className="hidden xl:block absolute top-9 left-full w-full h-0.5 bg-amber-200 z-0 -translate-x-6" />
-              )}
-
-              {/* Step Number */}
-              <div className="relative z-10 w-12 h-12 rounded-full bg-amber-700 group-hover:bg-amber-800 text-white font-bold text-lg flex items-center justify-center mb-4 shadow-md transition-colors duration-200">
-                {step.step}
-              </div>
-
-              <h3 className="font-semibold text-stone-800 mb-2 group-hover:text-amber-700 transition-colors duration-200">
-                {step.title}
-              </h3>
-              <p className="text-sm text-stone-500 leading-relaxed">
-                {step.description}
-              </p>
-            </div>
-          ))}
-        </div>
-
-        {/* CTA */}
-        <div className="mt-14 bg-amber-700 rounded-2xl p-8 sm:p-10 text-center">
-          <h3 className="text-2xl sm:text-3xl font-bold text-white mb-3">
-            Siap Mewujudkan Furniture Impian Anda?
-          </h3>
-          <p className="text-amber-200 mb-6 text-base">
-            Hubungi kami sekarang untuk konsultasi gratis dan penawaran terbaik.
-          </p>
-          <button
-            onClick={() => scrollTo('#kontak')}
-            className="bg-white text-amber-700 hover:bg-amber-50 font-semibold px-8 py-3 rounded-full transition-all duration-200 shadow-md hover:shadow-lg"
-          >
-            Mulai Konsultasi →
-          </button>
-        </div>
       </div>
     </section>
   );
