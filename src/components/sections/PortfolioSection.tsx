@@ -38,7 +38,7 @@ const PortfolioSection = () => {
                 <ProjectCard 
                   project={project} 
                   idx={idx} 
-                  onClick={() => navigate('/portofolio', { state: { projectId: project.id } })}
+                  onClick={() => navigate(`/portofolio/${project.id}`)}
                 />
               </div>
             ))
