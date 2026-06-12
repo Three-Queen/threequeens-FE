@@ -25,7 +25,7 @@ interface LandingData {
     instagram: string | null;
     jam_kerja: string;
   };
-  categories: { id: number; nama_kategori: string }[];
+  categories: { id: number; nama_kategori: string; tipe_layanan?: string }[];
   products: Product[];
   portfolios: Project[];
 }
@@ -68,11 +68,16 @@ export const LandingDataProvider: React.FC<{ children: React.ReactNode }> = ({ c
       jam_kerja: 'Senin - Jumat: 09.00 - 17.00',
     },
     categories: [
-      { id: 0, nama_kategori: 'Semua' },
-      { id: 1, nama_kategori: 'Kitchen Set' },
-      { id: 2, nama_kategori: 'Lemari' },
-      { id: 3, nama_kategori: 'Meja' },
-      { id: 4, nama_kategori: 'Kursi' },
+      { id: 0, nama_kategori: 'Semua', tipe_layanan: 'Semua' },
+      { id: 1, nama_kategori: 'Kitchen Set', tipe_layanan: 'Residential' },
+      { id: 2, nama_kategori: 'Living Room', tipe_layanan: 'Residential' },
+      { id: 3, nama_kategori: 'Bedroom', tipe_layanan: 'Residential' },
+      { id: 5, nama_kategori: 'Bathroom', tipe_layanan: 'Residential' },
+      { id: 4, nama_kategori: 'Office', tipe_layanan: 'Komersial' },
+      { id: 6, nama_kategori: 'Cafe & Restaurant', tipe_layanan: 'Komersial' },
+      { id: 7, nama_kategori: 'Retail & Store', tipe_layanan: 'Komersial' },
+      { id: 8, nama_kategori: 'Custom Cabinet', tipe_layanan: 'Kustom' },
+      { id: 9, nama_kategori: 'Custom Wardrobe', tipe_layanan: 'Kustom' },
     ],
     products: PRODUCTS,
     portfolios: PROJECTS,
@@ -122,10 +127,11 @@ export const LandingDataProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
           // Map categories
           const mappedCategories = [
-            { id: 0, nama_kategori: 'Semua' },
+            { id: 0, nama_kategori: 'Semua', tipe_layanan: 'Semua' },
             ...apiData.categories.map((c: any) => ({
               id: c.id,
               nama_kategori: c.nama_kategori,
+              tipe_layanan: c.tipe_layanan || 'Residential',
             })),
           ];
 

@@ -9,6 +9,7 @@ const ProductsPage = () => {
   const { categories, products } = data;
   
   const [searchQuery, setSearchQuery] = useState('');
+  const [activeServiceType, setActiveServiceType] = useState<'Semua' | 'Residential' | 'Komersial' | 'Kustom'>('Semua');
   const [activeCategory, setActiveCategory] = useState('Semua');
 
   // Scroll to top on mount
@@ -16,8 +17,21 @@ const ProductsPage = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  // Filter products based on category and search query (case-insensitive checks)
+  // Filter sub-categories based on selected Service Type
+  const displayedCategories = categories.filter((cat) => {
+    if (activeServiceType === 'Semua') return true;
+    return cat.tipe_layanan === activeServiceType || cat.nama_kategori === 'Semua';
+  });
+
+  // Filter products based on Service Type, sub-category, and search query
   const filteredProducts = products.filter((product) => {
+    const catObj = categories.find((c) => c.nama_kategori.toLowerCase() === product.category.toLowerCase());
+    const serviceType = catObj?.tipe_layanan || 'Residential';
+
+    const matchesServiceType =
+      activeServiceType === 'Semua' ||
+      serviceType === activeServiceType;
+
     const matchesCategory =
       activeCategory === 'Semua' ||
       product.category.toLowerCase() === activeCategory.toLowerCase();
@@ -26,7 +40,7 @@ const ProductsPage = () => {
       product.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       (product.description || '').toLowerCase().includes(searchQuery.toLowerCase());
 
-    return matchesCategory && matchesSearch;
+    return matchesServiceType && matchesCategory && matchesSearch;
   });
 
   return (
@@ -50,22 +64,46 @@ const ProductsPage = () => {
           </p>
         </div>
 
-        {/* Search & Filter Section */}
-        <div className="bg-white border border-[#E5E7EB] rounded-xl p-5 mb-8 shadow-sm flex flex-col md:flex-row gap-5 items-center justify-between">
+        {/* Service Type Tab Selector (Level 1) */}
+        <div className="flex justify-center mb-8 w-full">
+          <div className="bg-stone-100 p-1.5 rounded-2xl flex flex-nowrap gap-1 border border-stone-200/40 overflow-x-auto no-scrollbar whitespace-nowrap w-full sm:w-auto shadow-sm">
+            {(['Semua', 'Residential', 'Komersial', 'Kustom'] as const).map((type) => (
+              <button
+                key={type}
+                onClick={() => {
+                  setActiveServiceType(type);
+                  setActiveCategory('Semua');
+                }}
+                className={`flex-1 sm:flex-initial shrink-0 px-5 sm:px-6 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold tracking-wide transition-all duration-350 cursor-pointer inline-block ${
+                  activeServiceType === type
+                    ? 'bg-[#472404] text-white shadow-md'
+                    : 'text-stone-600 hover:text-stone-900 hover:bg-stone-200/50'
+                }`}
+              >
+                {type === 'Semua' ? 'Semua Layanan' : type}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Search & Filter Section (Level 2) */}
+        <div className="bg-white border border-[#E5E7EB] rounded-xl p-4 sm:p-5 mb-8 shadow-sm flex flex-col md:flex-row gap-4 sm:gap-5 items-stretch md:items-center justify-between">
           
           {/* Categories Horizontal Selector */}
-          <div className="flex flex-wrap gap-2 w-full md:w-auto">
-            {categories.map((cat) => (
+          <div className="flex flex-nowrap md:flex-wrap gap-2 overflow-x-auto md:overflow-visible no-scrollbar whitespace-nowrap w-full md:w-auto pb-3 md:pb-0">
+            {displayedCategories.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.nama_kategori)}
-                className={`px-5 py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 border cursor-pointer ${
+                className={`px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 border cursor-pointer inline-block shrink-0 ${
                   activeCategory.toLowerCase() === cat.nama_kategori.toLowerCase()
                     ? 'bg-[#472404] text-white border-[#472404] shadow-sm'
                     : 'bg-white text-stone-500 border-stone-200 hover:border-[#472404] hover:text-[#472404]'
                 }`}
               >
-                {cat.nama_kategori}
+                {cat.nama_kategori === 'Semua' && activeServiceType !== 'Semua'
+                  ? `Semua ${activeServiceType}`
+                  : cat.nama_kategori}
               </button>
             ))}
           </div>
