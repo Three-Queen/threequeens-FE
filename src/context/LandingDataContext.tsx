@@ -111,10 +111,28 @@ export const LandingDataProvider: React.FC<{ children: React.ReactNode }> = ({ c
           // Map portfolios
           const mappedPortfolios: Project[] = apiData.portfolios.map((item: any) => {
             const titleLower = (item.nama_proyek || '').toLowerCase();
-            let category = 'LIVING ROOM';
-            if (titleLower.includes('kitchen') || titleLower.includes('studio band')) {
-              category = 'KITCHEN SET';
+            let category = 'Living Room'; // Default fallback
+            
+            if (titleLower.includes('kitchen')) {
+              category = 'Kitchen Set';
+            } else if (titleLower.includes('living') || titleLower.includes('keluarga') || titleLower.includes('studio')) {
+              category = 'Living Room';
+            } else if (titleLower.includes('bedroom') || titleLower.includes('tidur')) {
+              category = 'Bedroom';
+            } else if (titleLower.includes('bathroom') || titleLower.includes('mandi')) {
+              category = 'Bathroom';
+            } else if (titleLower.includes('office') || titleLower.includes('kantor') || titleLower.includes('kerja')) {
+              category = 'Office';
+            } else if (titleLower.includes('cafe') || titleLower.includes('restaurant') || titleLower.includes('kopi') || titleLower.includes('coffee')) {
+              category = 'Cafe & Restaurant';
+            } else if (titleLower.includes('retail') || titleLower.includes('store') || titleLower.includes('butik') || titleLower.includes('toko')) {
+              category = 'Retail & Store';
+            } else if (titleLower.includes('cabinet') || titleLower.includes('lemari') || titleLower.includes('pajangan') || titleLower.includes('tv')) {
+              category = 'Custom Cabinet';
+            } else if (titleLower.includes('wardrobe') || titleLower.includes('closet')) {
+              category = 'Custom Wardrobe';
             }
+
             return {
               id: item.id,
               title: item.nama_proyek,
@@ -122,6 +140,8 @@ export const LandingDataProvider: React.FC<{ children: React.ReactNode }> = ({ c
               location: item.lokasi,
               image: item.dokumentasi_url || '',
               category: category,
+              waktuPengerjaan: item.waktu_proyek || null,
+              googleMaps: item.lokasi_google_maps || null,
             };
           });
 

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useLandingData } from '../context/LandingDataContext';
 import { ArrowLeftIcon, WhatsAppIcon, PhoneIcon } from '../components/ui/Icons';
+import SEO from '../components/SEO';
 
 declare module 'react' {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -178,6 +179,12 @@ const ProductDetailPage = () => {
 
   return (
     <div className="pt-[60px] pb-24 bg-white min-h-screen">
+      <SEO 
+        title={`${product.title} - Custom Furniture`}
+        description={product.description ? (product.description.length > 155 ? product.description.slice(0, 155) + '...' : product.description) : `Jasa pembuatan custom furniture ${product.title} berkualitas di Kuningan oleh Three Queen's Interior.`}
+        keywords={`${product.title.toLowerCase()}, custom ${product.category.toLowerCase()}, furniture custom kuningan, kitchen set kuningan, three queens interior`}
+        image={product.image}
+      />
       {/* Banner / Hero Image (Full Width directly below navbar) */}
       <div className="w-full h-[250px] sm:h-[350px] md:h-[480px] lg:h-[540px] bg-stone-100 overflow-hidden relative">
         {/* Floating Back Button */}
@@ -221,14 +228,6 @@ const ProductDetailPage = () => {
             </p>
           </div>
 
-          {/* Floating WhatsApp Circle */}
-          <button
-            onClick={() => handleWATanya('konsultasi')}
-            className="w-12 h-12 rounded-full bg-[#25D366] hover:bg-[#1ebd5a] text-white flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 cursor-pointer self-start md:mt-2"
-            aria-label="Tanya Produk via WhatsApp"
-          >
-            <WhatsAppIcon className="w-6 h-6" />
-          </button>
         </div>
 
         {/* Deskripsi Produk Section */}
@@ -412,6 +411,20 @@ const ProductDetailPage = () => {
         </div>
 
       </div>
+
+      {/* Persistent Floating WhatsApp Button */}
+      <button
+        onClick={() => handleWATanya('konsultasi')}
+        className="fixed bottom-6 right-6 md:bottom-8 md:right-8 w-14 h-14 rounded-full bg-[#25D366] hover:bg-[#1ebd5a] text-white flex items-center justify-center shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-110 cursor-pointer z-50 group"
+        aria-label="Tanya Produk via WhatsApp"
+      >
+        <WhatsAppIcon className="w-7 h-7" />
+        
+        {/* Tooltip on Hover */}
+        <span className="absolute right-16 bg-stone-900/90 text-white text-xs font-semibold px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap shadow-md pointer-events-none hidden md:block backdrop-blur-sm">
+          Hubungi via WhatsApp
+        </span>
+      </button>
     </div>
   );
 };

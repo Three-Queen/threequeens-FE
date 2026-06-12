@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import SEO from '../components/SEO';
 import {
   HeroSection,
   ProdukSection,
@@ -30,6 +31,7 @@ const LandingPage = () => {
 
   return (
     <>
+      <SEO />
       <HeroSection />
       <TentangSection />
       <LayananSection />
@@ -42,3 +44,4 @@ const LandingPage = () => {
 };
 
 export default LandingPage;
+

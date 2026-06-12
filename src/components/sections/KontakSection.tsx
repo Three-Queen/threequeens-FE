@@ -60,7 +60,7 @@ const KontakSection = () => {
 
         <h2 
           data-aos="fade-down"
-          className="text-3xl font-bold text-[#1a1a1a] text-center mt-5 mb-24 tracking-tight"
+          className="text-3xl font-bold text-[#1a1a1a] text-center mt-5 mb-12 md:mb-24 tracking-tight"
         >
           Kontak Kami
         </h2>

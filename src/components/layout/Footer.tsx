@@ -53,7 +53,7 @@ const Footer = () => {
     <footer className="bg-[#faf9f7] text-[#1a1a1a] border-t border-[#472404]">
 
 
-      <div className="max-w-7xl mx-auto px-20 py-10">
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-20 py-10">
         <div className="grid grid-cols-1 lg:grid-cols-[auto_2fr_1fr_2fr] gap-10">
 
           <div className="flex flex-col items-center justify-center gap-1 min-w-[110px]">
@@ -111,12 +111,12 @@ const Footer = () => {
       </div>
 
 
-      <div className="max-w-7xl mx-auto px-20 w-full">
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-20 w-full">
         <div className="border-t-2 border-[#472404] w-full" />
       </div>
 
    
-      <div className="max-w-7xl mx-auto px-20 py-6 flex flex-col items-center gap-4">
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-20 py-6 flex flex-col items-center gap-4">
 
         <div className="flex items-center gap-3">
           {socialLinks.map((social) => (

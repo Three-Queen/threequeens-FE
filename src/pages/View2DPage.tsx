@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useLandingData } from '../context/LandingDataContext';
 import { ArrowLeftIcon } from '../components/ui/Icons';
 import logoImg from '../assets/images/Logo.png';
+import SEO from '../components/SEO';
 
 const View2DPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -141,6 +142,11 @@ const View2DPage = () => {
 
   return (
     <div className="h-screen w-screen bg-stone-950 text-white flex items-center justify-center select-none overflow-hidden relative p-4 sm:p-8">
+      <SEO 
+        title={`Gambar Kerja 2D: ${product.title}`}
+        description={`Gambar kerja 2D detail teknis untuk ${product.title}.`}
+        robots="noindex, nofollow"
+      />
       {/* Floating Back Button */}
       <button
         onClick={handleBack}

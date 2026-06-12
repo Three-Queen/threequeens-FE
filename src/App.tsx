@@ -5,15 +5,17 @@ import LandingPage from './pages/LandingPage';
 import ProductDetailPage from './pages/ProductDetailPage';
 import ProductsPage from './pages/ProductsPage';
 import View2DPage from './pages/View2DPage';
-import { LandingDataProvider, useLandingData } from './context/LandingDataContext';
+import PortfoliosPage from './pages/PortfoliosPage';
+import PortfolioDetailPage from './pages/PortfolioDetailPage';
+import { useLandingData } from './context/LandingDataContext';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import logoImg from './assets/images/LogoNavbar.png';
+import logoImg from './assets/images/Logo.png';
 
 // ============================================================
-// AppContent — Handles Page Routing and Splash Loader
+// App — Handles Page Routing, Splash Loader, and AOS Init
 // ============================================================
-const AppContent = () => {
+const App = () => {
   const { loading: apiLoading } = useLandingData();
   const [showSplash, setShowSplash] = useState(true);
   const [isFading, setIsFading] = useState(false);
@@ -22,6 +24,13 @@ const AppContent = () => {
   const isView2DRoute = location.pathname.startsWith('/view-2d');
 
   useEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: true,
+      easing: 'ease-in-out',
+      offset: 100,
+    });
+
     // Minimum display time for branding animation: 1.5s
     const timer = setTimeout(() => {
       setMinTimePassed(true);
@@ -101,32 +110,14 @@ const AppContent = () => {
           <Route path="/" element={<LandingPage />} />
           <Route path="/produk" element={<ProductsPage />} />
           <Route path="/produk/:id" element={<ProductDetailPage />} />
+          <Route path="/portofolio" element={<PortfoliosPage />} />
+          <Route path="/portofolio/:id" element={<PortfolioDetailPage />} />
           <Route path="/view-2d/:id" element={<View2DPage />} />
         </Routes>
       </main>
 
       {!isView2DRoute && <Footer />}
     </div>
-  );
-};
-
-// ============================================================
-// App — Entry point wrapped in context provider
-// ============================================================
-const App = () => {
-  useEffect(() => {
-    AOS.init({
-      duration: 800,
-      once: true,
-      easing: 'ease-in-out',
-      offset: 100,
-    });
-  }, []);
-
-  return (
-    <LandingDataProvider>
-      <AppContent />
-    </LandingDataProvider>
   );
 };
 

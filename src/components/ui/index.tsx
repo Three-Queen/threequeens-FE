@@ -87,6 +87,7 @@ export const Button = ({
 };
 
 export { Skeleton, ProductCardSkeleton, ProjectCardSkeleton } from './Skeleton';
+export { ProjectCard } from './ProjectCard';
 export {
   MapIcon,
   CalculatorIcon,

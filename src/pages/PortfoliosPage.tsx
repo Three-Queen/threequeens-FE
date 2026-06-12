@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useLandingData } from '../context/LandingDataContext';
-import { ProductCard } from '../components/ui/ProductCard';
-import { ProductCardSkeleton } from '../components/ui';
+import { ProjectCard } from '../components/ui/ProjectCard';
+import { ProjectCardSkeleton } from '../components/ui';
 import SEO from '../components/SEO';
 
-const ProductsPage = () => {
+const PortfoliosPage = () => {
   const { data, loading } = useLandingData();
-  const { categories, products } = data;
-  
+  const { categories, portfolios } = data;
+  const navigate = useNavigate();
+
   const [searchQuery, setSearchQuery] = useState('');
   const [activeServiceType, setActiveServiceType] = useState<'Semua' | 'Residential' | 'Komersial' | 'Kustom'>('Semua');
   const [activeCategory, setActiveCategory] = useState('Semua');
@@ -19,28 +20,30 @@ const ProductsPage = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  // Filter sub-categories based on selected Service Type
+  // Filter categories shown in dropdown based on Service Type
   const displayedCategories = categories.filter((cat) => {
     if (activeServiceType === 'Semua') return true;
     return cat.tipe_layanan === activeServiceType || cat.nama_kategori === 'Semua';
   });
 
-  // Filter products based on Service Type, sub-category, and search query
-  const filteredProducts = products.filter((product) => {
-    const catObj = categories.find((c) => c.nama_kategori.toLowerCase() === product.category.toLowerCase());
+  // Filter portfolios based on Service Type, sub-category, and search query
+  const filteredPortfolios = portfolios.filter((project) => {
+    const catObj = categories.find(
+      (c) => c.nama_kategori.toLowerCase() === (project.category || 'Living Room').toLowerCase()
+    );
     const serviceType = catObj?.tipe_layanan || 'Residential';
 
     const matchesServiceType =
-      activeServiceType === 'Semua' ||
-      serviceType === activeServiceType;
+      activeServiceType === 'Semua' || serviceType === activeServiceType;
 
     const matchesCategory =
       activeCategory === 'Semua' ||
-      product.category.toLowerCase() === activeCategory.toLowerCase();
-    
+      (project.category || 'Living Room').toLowerCase() === activeCategory.toLowerCase();
+
     const matchesSearch =
-      product.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (product.description || '').toLowerCase().includes(searchQuery.toLowerCase());
+      project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      project.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (project.description || '').toLowerCase().includes(searchQuery.toLowerCase());
 
     return matchesServiceType && matchesCategory && matchesSearch;
   });
@@ -48,9 +51,9 @@ const ProductsPage = () => {
   return (
     <div className="min-h-screen bg-[#FDFBF7] pt-24 pb-20">
       <SEO 
-        title="Katalog Furniture Custom & Desain Interior"
-        description="Jelajahi seluruh koleksi furniture custom premium dan rancangan desain interior buatan workshop Three Queen's Interior di Kuningan. Kitchen set, wardrobe, TV cabinet, dan lainnya."
-        keywords="katalog furniture custom, custom furniture kuningan, kitchen set kuningan, lemari pakaian custom, cabinet tv custom, three queens interior"
+        title="Galeri Portofolio Desain Interior & Custom Furniture"
+        description="Lihat kumpulan hasil proyek pengerjaan desain interior dan furniture custom premium kami di Kuningan, Cirebon, dan sekitarnya. Ide desain dapur, lemari, & ruang tamu."
+        keywords="portofolio desain interior, portofolio kitchen set, hasil proyek interior kuningan, interior designer kuningan, three queens interior"
       />
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-20">
         
@@ -58,16 +61,16 @@ const ProductsPage = () => {
         <div className="mb-6 flex items-center gap-2 text-xs sm:text-sm text-stone-500">
           <Link to="/" className="hover:text-[#472404] transition-colors">Beranda</Link>
           <span className="text-stone-300">/</span>
-          <span className="text-[#472404] font-medium">Katalog Produk</span>
+          <span className="text-[#472404] font-medium">Portofolio</span>
         </div>
 
         {/* Page Header */}
         <div className="mb-10 text-center sm:text-left">
           <h1 className="text-3xl sm:text-4xl font-extrabold text-stone-900 mb-3">
-            Katalog Produk Kami
+            Portofolio Proyek
           </h1>
           <p className="text-stone-500 text-sm sm:text-base max-w-2xl leading-relaxed">
-            Jelajahi seluruh koleksi furniture custom dan desain interior premium buatan workshop Three Queens.
+            Melihat lebih dekat hasil pengerjaan kami. Setiap ruangan dirancang dan dibangun dengan mengutamakan presisi, estetika, dan fungsionalitas.
           </p>
         </div>
 
@@ -99,7 +102,6 @@ const ProductsPage = () => {
           
           {/* Custom Dropdown Selector */}
           <div className="relative w-full sm:w-auto">
-            {/* Backdrop overlay for closing dropdown */}
             {isDropdownOpen && (
               <div 
                 className="fixed inset-0 z-20 cursor-default bg-transparent" 
@@ -134,9 +136,8 @@ const ProductsPage = () => {
               </svg>
             </button>
 
-            {/* Dropdown Options List */}
             {isDropdownOpen && (
-              <div className="absolute left-0 mt-2 w-full sm:w-64 bg-white border border-stone-200 rounded-xl shadow-xl z-30 py-1.5 overflow-hidden animate-fade-in">
+              <div className="absolute left-0 mt-2 w-full sm:w-64 bg-white border border-stone-200 rounded-xl shadow-xl z-30 py-1.5 overflow-hidden">
                 {displayedCategories.map((cat) => (
                   <button
                     key={cat.id}
@@ -177,7 +178,7 @@ const ProductsPage = () => {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Cari produk..."
+              placeholder="Cari nama proyek atau lokasi..."
               className="w-full pl-10 pr-4 py-2.5 bg-[#FDFBF7] border border-stone-200 rounded-lg text-sm text-stone-800 placeholder-stone-400 focus:outline-none focus:border-[#472404] focus:ring-1 focus:ring-[#472404] transition-all"
             />
             {searchQuery && (
@@ -191,21 +192,24 @@ const ProductsPage = () => {
               </button>
             )}
           </div>
-
         </div>
 
-        {/* Product Grid */}
+        {/* Portfolio Grid */}
         {loading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {Array.from({ length: 6 }).map((_, idx) => (
-              <ProductCardSkeleton key={idx} />
+              <ProjectCardSkeleton key={idx} />
             ))}
           </div>
-        ) : filteredProducts.length > 0 ? (
+        ) : filteredPortfolios.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredProducts.map((product) => (
-              <div key={product.id} className="h-full">
-                <ProductCard product={product} />
+            {filteredPortfolios.map((project, idx) => (
+              <div key={project.id} className="h-full">
+                <ProjectCard 
+                  project={project} 
+                  idx={idx} 
+                  onClick={() => navigate(`/portofolio/${project.id}`)} 
+                />
               </div>
             ))}
           </div>
@@ -214,16 +218,15 @@ const ProductsPage = () => {
             <svg className="w-12 h-12 text-stone-300 mx-auto mb-4" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
             </svg>
-            <h3 className="text-stone-800 font-bold text-lg mb-1">Produk Tidak Ditemukan</h3>
+            <h3 className="text-stone-800 font-bold text-lg mb-1">Proyek Tidak Ditemukan</h3>
             <p className="text-stone-400 text-sm max-w-sm mx-auto">
-              Tidak ada produk yang cocok dengan pencarian "{searchQuery}" atau filter kategori "{activeCategory}". Coba kata kunci lainnya.
+              Tidak ada proyek yang cocok dengan kata kunci "{searchQuery}" atau filter kategori "{activeCategory}".
             </p>
           </div>
         )}
-
       </div>
     </div>
   );
 };
 
-export default ProductsPage;
+export default PortfoliosPage;

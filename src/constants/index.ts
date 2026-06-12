@@ -26,10 +26,18 @@ export const PRODUCTS: Product[] = [
 ];
 
 export const PROJECTS: Project[] = [
-  { id: 1, title: 'Apartemen Modern', location: 'Jakarta Selatan', image: '' },
-  { id: 2, title: 'Rumah Minimalis', location: 'Bandung', image: '' },
-  { id: 3, title: 'Kantor Kreatif', location: 'Jakarta Pusat', image: '' },
-  { id: 4, title: 'Café Interior', location: 'Yogyakarta', image: '' },
+  { id: 1, title: 'Apartemen Studio Modern - Winduhaji', location: 'Kuningan - 2026', image: welcomeImg, category: 'Living Room', description: 'Desain interior apartemen studio yang efisien dengan pemanfaatan ruang vertikal secara maksimal, bernuansa kayu hangat.', waktuPengerjaan: '2 Bulan', googleMaps: 'https://maps.google.com' },
+  { id: 2, title: 'Kitchen Set L - Shape Premium - Kuningan', location: 'Kuningan - 2026', image: welcomeImg, category: 'Kitchen Set', description: 'Kitchen set minimalis bentuk L dengan island table berlapis kuarsa putih mewah dan kabinet bertekstur kayu alami.', waktuPengerjaan: '1.5 Bulan', googleMaps: 'https://maps.google.com' },
+  { id: 3, title: 'Master Bedroom Scandinavian - Cirebon', location: 'Cirebon - 2026', image: welcomeImg, category: 'Bedroom', description: 'Desain kamar tidur utama bernuansa Scandinavian dengan paduan warna netral, kabinet wardrobe terintegrasi.', waktuPengerjaan: '2.5 Bulan', googleMaps: 'https://maps.google.com' },
+  { id: 4, title: 'Luxury Bathroom Marble - Bandung', location: 'Bandung - 2025', image: welcomeImg, category: 'Bathroom', description: 'Interior kamar mandi mewah yang dibalut dinding marmer Carrara, cermin LED pintar, dan saniter bernuansa hitam matte.', waktuPengerjaan: '1 Bulan', googleMaps: 'https://maps.google.com' },
+  { id: 5, title: 'Office Space Startup - Jakarta', location: 'Jakarta - 2026', image: welcomeImg, category: 'Office', description: 'Ruang kantor kerja bersama dengan konsep open-space, dipadukan dengan tanaman indoor.', waktuPengerjaan: '3 Bulan', googleMaps: 'https://maps.google.com' },
+  { id: 6, title: 'Coffee Shop Industrial - Kuningan', location: 'Kuningan - 2025', image: welcomeImg, category: 'Cafe & Restaurant', description: 'Desain cafe kopi industrial menggunakan ekspos bata merah, semen poles, dan furniture besi kustom.', waktuPengerjaan: '2 Bulan', googleMaps: 'https://maps.google.com' },
+  { id: 7, title: 'Butik Fashion Minimalis - Cirebon', location: 'Cirebon - 2026', image: welcomeImg, category: 'Retail & Store', description: 'Tata ruang butik pakaian premium dengan sistem gantungan kustom minimalis hitam, pencahayaan spotlight.', waktuPengerjaan: '1.5 Bulan', googleMaps: 'https://maps.google.com' },
+  { id: 8, title: 'Custom TV Cabinet - Winduhaji', location: 'Kuningan - 2026', image: welcomeImg, category: 'Custom Cabinet', description: 'Pengerjaan furniture custom kabinet TV minimalis melayang dengan panel kisi-kisi kayu di bagian belakang.', waktuPengerjaan: '1 Bulan', googleMaps: 'https://maps.google.com' },
+  { id: 9, title: 'Custom Wardrobe Walk-in Closet', location: 'Kuningan - 2026', image: welcomeImg, category: 'Custom Wardrobe', description: 'Pembuatan lemari pakaian custom pintu kaca tempered dengan frame aluminium hitam gelap.', waktuPengerjaan: '1.5 Bulan', googleMaps: 'https://maps.google.com' },
+  { id: 10, title: 'Living Room Cozy - Kuningan', location: 'Kuningan - 2025', image: welcomeImg, category: 'Living Room', description: 'Desain ruang keluarga hangat dengan sofa modular abu-abu besar dan dekorasi dinding rak kustom.', waktuPengerjaan: '2 Bulan', googleMaps: 'https://maps.google.com' },
+  { id: 11, title: 'Dapur Kitchen Set HPL - Cirebon', location: 'Cirebon - 2026', image: welcomeImg, category: 'Kitchen Set', description: 'Kitchen set kompak untuk rumah minimalis dengan finishing HPL motif serat kayu gelap.', waktuPengerjaan: '1 Bulan', googleMaps: 'https://maps.google.com' },
+  { id: 12, title: 'Kantor Kerja Eksekutif - Bandung', location: 'Bandung - 2026', image: welcomeImg, category: 'Office', description: 'Desain meja kerja direksi custom berpola marmer, kursi ergonomis premium, dan rak berkas.', waktuPengerjaan: '2 Bulan', googleMaps: 'https://maps.google.com' },
 ];
 
 export const ORDER_STEPS: OrderStep[] = [

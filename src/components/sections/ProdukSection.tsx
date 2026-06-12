@@ -7,16 +7,20 @@ import { Link } from 'react-router-dom';
 const ProdukSection = () => {
   const { data, loading } = useLandingData();
   const { categories, products } = data;
-  const [activeCategory, setActiveCategory] = useState('Semua');
+  const [activeServiceType, setActiveServiceType] = useState<'Semua' | 'Residential' | 'Komersial' | 'Kustom'>('Semua');
 
-  // Filter products based on selected category (case-insensitive check)
-  const filteredProducts = activeCategory === 'Semua'
-    ? products
-    : products.filter(
-        (product) => product.category.toLowerCase() === activeCategory.toLowerCase()
-      );
+  // Filter products based on selected Service Type (Residential, Komersial, Kustom)
+  const filteredProducts = products.filter((product) => {
+    if (activeServiceType === 'Semua') return true;
+    
+    // Match the product's category in categories array to retrieve its service type
+    const catObj = categories.find((c) => c.nama_kategori.toLowerCase() === product.category.toLowerCase());
+    const serviceType = catObj?.tipe_layanan || 'Residential';
+    
+    return serviceType === activeServiceType;
+  });
 
-  // Show first 6 products as featured
+  // Show first 6 products of the filtered list
   const displayedProducts = filteredProducts.slice(0, 6);
 
   return (
@@ -30,19 +34,19 @@ const ProdukSection = () => {
           titleClassName="text-[32px] sm:text-[40px] font-bold text-[#1a1a1a]"
         />
 
-        {/* Categories Filter - Scrollable on mobile, wraps on desktop */}
-        <div className="flex flex-nowrap md:flex-wrap gap-3 overflow-x-auto md:overflow-visible no-scrollbar whitespace-nowrap justify-start md:justify-center w-full pb-4 md:pb-0 mb-10">
-          {categories.map((cat) => (
+        {/* Service Type Filter (Level 1) */}
+        <div className="flex flex-wrap justify-center gap-3 mb-12" data-aos="fade-down">
+          {(['Semua', 'Residential', 'Komersial', 'Kustom'] as const).map((type) => (
             <button
-              key={cat.id}
-              onClick={() => setActiveCategory(cat.nama_kategori)}
-              className={`px-7 py-2.5 rounded-full text-[14px] font-medium transition-all duration-200 border cursor-pointer inline-block shrink-0 ${
-                activeCategory.toLowerCase() === cat.nama_kategori.toLowerCase()
+              key={type}
+              onClick={() => setActiveServiceType(type)}
+              className={`px-6 sm:px-7 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 border cursor-pointer ${
+                activeServiceType === type
                   ? 'bg-[#472404] text-white border-[#472404] shadow-sm'
-                  : 'bg-white text-stone-500 border-stone-300 hover:border-[#472404] hover:text-[#472404]'
+                  : 'bg-white text-stone-500 border-stone-200 hover:border-[#472404] hover:text-[#472404]'
               }`}
             >
-              {cat.nama_kategori}
+              {type === 'Semua' ? 'Semua Produk' : type}
             </button>
           ))}
         </div>
@@ -61,7 +65,7 @@ const ProdukSection = () => {
             ))
           ) : (
             <div className="col-span-full text-center py-12 bg-stone-50 rounded-xl border border-stone-100">
-              <p className="text-stone-400 text-sm">Tidak ada produk dalam kategori ini.</p>
+              <p className="text-stone-400 text-sm">Tidak ada produk dalam layanan ini.</p>
             </div>
           )}
         </div>

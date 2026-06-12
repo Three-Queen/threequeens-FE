@@ -26,6 +26,8 @@ export interface Project {
   image: string;
   description?: string;
   category?: string;
+  waktuPengerjaan?: string | null;
+  googleMaps?: string | null;
 }
 
 export interface OrderStep {

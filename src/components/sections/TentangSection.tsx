@@ -48,8 +48,8 @@ const TentangSection = () => {
             </div>
 
             {/* Bottom Row: Stats & Button */}
-            <div className="flex flex-wrap items-stretch gap-6 mt-8 pt-4">
-              <div className="bg-white shadow-[0_4px_20px_rgba(0,0,0,0.08)] rounded-md px-6 py-4 flex items-center justify-center gap-3 border border-stone-50">
+            <div className="flex flex-col sm:flex-row items-stretch gap-4 mt-8 pt-4">
+              <div className="bg-white shadow-[0_4px_20px_rgba(0,0,0,0.08)] rounded-md px-6 py-4 flex items-center justify-center gap-3 border border-stone-50 w-full sm:w-auto">
                 <span className="text-3xl font-extrabold text-[#472404]">1000+</span>
                 <span className="text-sm font-bold text-[#1a1a1a] leading-tight">Model<br />Furniture</span>
               </div>
@@ -58,7 +58,7 @@ const TentangSection = () => {
                   const el = document.getElementById('kontak');
                   el?.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="bg-[#472404] hover:bg-[#3A1F0D] text-white font-medium px-8 flex items-center justify-center rounded-md transition-colors duration-200 shadow-sm"
+                className="bg-[#472404] hover:bg-[#3A1F0D] text-white font-medium px-8 py-4 flex items-center justify-center rounded-md transition-colors duration-200 shadow-sm cursor-pointer w-full sm:w-auto"
               >
                 Kontak Kami
               </button>

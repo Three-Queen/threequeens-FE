@@ -1,5 +1,6 @@
+import { Link, useNavigate } from 'react-router-dom';
 import { useLandingData } from '../../context/LandingDataContext';
-import { SectionHeader, ProjectCardSkeleton } from '../ui';
+import { SectionHeader, ProjectCardSkeleton, ProjectCard } from '../ui';
 
 // ============================================================
 // Portfolio Section
@@ -8,6 +9,10 @@ import { SectionHeader, ProjectCardSkeleton } from '../ui';
 const PortfolioSection = () => {
   const { data, loading } = useLandingData();
   const { portfolios } = data;
+  const navigate = useNavigate();
+
+  // Limit landing page portfolio to latest 6 items
+  const featuredPortfolios = portfolios.slice(0, 6);
 
   return (
     <section id="portfolio" className="py-20 bg-white">
@@ -28,56 +33,36 @@ const PortfolioSection = () => {
               <ProjectCardSkeleton key={index} />
             ))
           ) : (
-            portfolios.map((project, idx) => (
-              <div
-                key={project.id}
-                data-aos="fade-up"
-                data-aos-delay={(idx % 3) * 100}
-                className="bg-white border border-[#E5E7EB] flex flex-col hover:shadow-md transition-shadow duration-300 rounded-sm overflow-hidden"
-              >
-                {/* Image Area */}
-                <div className="w-full aspect-[4/3] bg-stone-100 flex items-center justify-center overflow-hidden">
-                  {project.image ? (
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                    />
-                  ) : (
-                    <div className="text-stone-400 text-sm">Image Placeholder</div>
-                  )}
-                </div>
-
-                {/* Content Area */}
-                <div className="p-5 flex flex-col flex-grow">
-                  <span className="text-[#472404] text-[11px] font-semibold uppercase tracking-wider mb-2">
-                    {project.category || 'LIVING ROOM'}
-                  </span>
-                  <h3 className="font-extrabold text-[#111827] text-[16px] mb-2 leading-snug">
-                    {project.title}
-                  </h3>
-                  {project.description && (
-                    <p className="text-stone-500 text-[13px] leading-relaxed mb-4 line-clamp-2">
-                      {project.description}
-                    </p>
-                  )}
-                  
-                  {/* Location Footer */}
-                  <div className="mt-auto pt-3 border-t border-[#E5E7EB] flex items-center gap-1.5 text-stone-500 text-[13px]">
-                    <svg className="w-4 h-4 text-stone-400 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    <span>{project.location}</span>
-                  </div>
-                </div>
+            featuredPortfolios.map((project, idx) => (
+              <div key={project.id} className="h-full">
+                <ProjectCard 
+                  project={project} 
+                  idx={idx} 
+                  onClick={() => navigate('/portofolio', { state: { projectId: project.id } })}
+                />
               </div>
             ))
           )}
         </div>
+
+        {/* View All Button */}
+        {!loading && portfolios.length > 6 && (
+          <div className="mt-12 text-center" data-aos="fade-up">
+            <Link
+              to="/portofolio"
+              className="inline-flex items-center gap-2 border-2 border-[#472404] text-[#472404] hover:bg-[#472404] hover:text-white transition-all duration-300 px-8 py-3 rounded-full font-bold text-sm tracking-wide shadow-sm hover:shadow-md cursor-pointer hover:-translate-y-0.5"
+            >
+              <span>Lihat Semua Portofolio</span>
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );
 };
 
 export default PortfolioSection;
+

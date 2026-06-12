@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { NAV_ITEMS } from '../../constants';
 import { useScrolled, useSmoothScroll } from '../../hooks';
-import logoImg from '../../assets/images/LogoNavbar.png';
+import logoImg from '../../assets/images/Logo.png';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,10 +12,14 @@ const Navbar = () => {
   const location = useLocation();
 
   useEffect(() => {
-    // If not on the homepage, highlight the "Produk" section active
+    // If not on the homepage, highlight the appropriate section active
     if (location.pathname !== '/') {
       const timer = setTimeout(() => {
-        setActiveSection('#produk');
+        if (location.pathname.startsWith('/portofolio')) {
+          setActiveSection('#portfolio');
+        } else {
+          setActiveSection('#produk');
+        }
       }, 0);
       return () => clearTimeout(timer);
     }
