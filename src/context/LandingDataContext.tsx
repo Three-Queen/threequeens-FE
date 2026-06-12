@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react-refresh/only-export-components */
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { PRODUCTS, PROJECTS } from '../constants';
 import type { Product, Project } from '../types';
@@ -57,13 +59,13 @@ export const LandingDataProvider: React.FC<{ children: React.ReactNode }> = ({ c
       gambar2: null,
     },
     kontak: {
-      lokasi: 'Jl. Contoh No. 123, Jakarta Selatan, DKI Jakarta 12345',
+      lokasi: 'Jl. Karangtawang, Karangtawang, Jatinunggal,\nKabupaten Kuningan, Jawa Barat 45515',
       whatsapp: '081234567890',
       email: 'info@threequeen.com',
       facebook: null,
       tiktok: null,
       instagram: null,
-      jam_kerja: 'Senin - Sabtu: 08.00 - 17.00 WIB',
+      jam_kerja: 'Senin - Jumat: 09.00 - 17.00',
     },
     categories: [
       { id: 0, nama_kategori: 'Semua' },
@@ -140,13 +142,13 @@ export const LandingDataProvider: React.FC<{ children: React.ReactNode }> = ({ c
               gambar2: apiData.tentang.gambar2,
             },
             kontak: {
-              lokasi: apiData.kontak.lokasi || 'Jl. Contoh No. 123, Jakarta Selatan',
+              lokasi: 'Jl. Karangtawang, Karangtawang, Jatinunggal,\nKabupaten Kuningan, Jawa Barat 45515',
               whatsapp: apiData.kontak.whatsapp || '081234567890',
               email: apiData.kontak.email || 'info@threequeen.com',
               facebook: apiData.kontak.facebook || null,
               tiktok: apiData.kontak.tiktok || null,
               instagram: apiData.kontak.instagram || null,
-              jam_kerja: apiData.kontak.jam_kerja || 'Senin - Sabtu: 08.00 - 17.00 WIB',
+              jam_kerja: 'Senin - Jumat: 09.00 - 17.00',
             },
             categories: mappedCategories,
             products: mappedProducts.length > 0 ? mappedProducts : PRODUCTS,

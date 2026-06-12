@@ -1,9 +1,7 @@
 import bgImage from '../../assets/images/welcome-screen.png';
 import { useLandingData } from '../../context/LandingDataContext';
 
-// ============================================================
-// Hero Section
-// ============================================================
+
 
 const HeroSection = () => {
   const { data } = useLandingData();
@@ -11,7 +9,7 @@ const HeroSection = () => {
 
   const backgroundUrl = beranda.background || bgImage;
 
-  // Split title into two parts for two-tone color effect
+  
   const titleParts = beranda.title.split(' ');
   const firstPart = titleParts[0] || 'Three';
   const secondPart = titleParts.slice(1).join(' ') || 'Queens';
@@ -26,10 +24,10 @@ const HeroSection = () => {
         backgroundPosition: 'center',
       }}
     >
-      {/* Transparent Brown Overlay */}
+     
       <div className="absolute inset-0 bg-[#3A1F0D]/30 z-0"></div>
 
-      {/* Content wrapper */}
+      
       <div className="relative z-10 w-full max-w-7xl mx-auto px-20 flex justify-end">
         <div className="max-w-[700px] text-right mt-10">
           <h1 className="text-6xl sm:text-7xl font-extrabold tracking-tight mb-4">
@@ -41,10 +39,9 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Floating WA Button */}
       <a 
         href="#kontak"
-        className="absolute bottom-8 right-8 z-20 bg-[#25D366] hover:bg-[#1ebd5a] text-white p-3.5 rounded-full shadow-lg transition-transform hover:scale-105"
+        className="fixed bottom-8 right-8 z-50 bg-[#25D366] hover:bg-[#1ebd5a] text-white p-3.5 rounded-full shadow-lg transition-transform hover:scale-105"
         aria-label="WhatsApp"
       >
         <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">

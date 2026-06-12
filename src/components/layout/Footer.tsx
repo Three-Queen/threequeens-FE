@@ -1,4 +1,4 @@
-import { FOOTER_LINKS, NAV_ITEMS } from '../../constants';
+import { NAV_ITEMS } from '../../constants';
 import { useSmoothScroll } from '../../hooks';
 import { useLandingData } from '../../context/LandingDataContext';
 import logoImg from '../../assets/images/Logo.png';
@@ -9,75 +9,83 @@ import {
   ClockIcon,
   InstagramIcon,
   FacebookIcon,
-  WhatsAppIcon,
 } from '../ui';
 
-// ============================================================
-// Footer Component
-// ============================================================
+const TikTokIcon = ({ className }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.79 1.54V6.78a4.85 4.85 0 0 1-1.02-.09z"/>
+  </svg>
+);
 
 const Footer = () => {
   const { scrollTo } = useSmoothScroll();
   const { data } = useLandingData();
   const { kontak } = data;
 
-  const dynamicContactInfo = [
-    { icon: <LocationIcon className="w-5 h-5 text-amber-500" />, label: 'Alamat', value: kontak.lokasi },
-    { icon: <PhoneIcon className="w-5 h-5 text-amber-500" />, label: 'Telepon', value: kontak.whatsapp },
-    { icon: <EmailIcon className="w-5 h-5 text-amber-500" />, label: 'Email', value: kontak.email },
-    { icon: <ClockIcon className="w-5 h-5 text-amber-500" />, label: 'Jam Operasional', value: kontak.jam_kerja },
+  const contactInfo = [
+    { icon: <LocationIcon className="w-4 h-4 text-[#7a5c3a]" />, value: kontak.lokasi },
+    { icon: <PhoneIcon className="w-4 h-4 text-[#7a5c3a]" />, value: kontak.whatsapp },
+    { icon: <EmailIcon className="w-4 h-4 text-[#7a5c3a]" />, value: kontak.email },
+    { icon: <ClockIcon className="w-4 h-4 text-[#7a5c3a]" />, value: kontak.jam_kerja },
   ];
 
-  const dynamicSocialLinks = [
-    { platform: 'Instagram', href: kontak.instagram || '#', icon: <InstagramIcon className="w-5 h-5" /> },
-    { platform: 'Facebook', href: kontak.facebook || '#', icon: <FacebookIcon className="w-5 h-5" /> },
-    { platform: 'WhatsApp', href: `https://wa.me/${kontak.whatsapp.replace(/[^0-9]/g, '')}`, icon: <WhatsAppIcon className="w-5 h-5" /> },
+
+
+  const socialLinks = [
+    {
+      label: 'Facebook',
+      href: kontak.facebook || '#',
+      icon: <FacebookIcon className="w-4 h-4" />,
+    },
+    {
+      label: 'Instagram',
+      href: kontak.instagram || '#',
+      icon: <InstagramIcon className="w-4 h-4" />,
+    },
+    {
+      label: 'TikTok',
+      href: '#',
+      icon: <TikTokIcon className="w-4 h-4" />,
+    },
   ];
 
   return (
-    <footer className="bg-stone-900 text-stone-300">
-      {/* Main Footer */}
-      <div className="max-w-7xl mx-auto px-20 py-14">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+    <footer className="bg-[#faf9f7] text-[#1a1a1a] border-t border-[#c9a97e]">
 
-          {/* Brand Column */}
-          <div className="col-span-1 sm:col-span-2 lg:col-span-1">
-            <div className="mb-4">
-              <img
-                src={logoImg}
-                alt="Three Queens Logo"
-                className="h-10 w-auto object-contain brightness-0 invert opacity-90"
-              />
-            </div>
-            <p className="text-sm text-stone-400 leading-relaxed mb-5">
-              Solusi furniture dan interior custom berkualitas tinggi untuk hunian dan ruang kerja impian Anda.
-            </p>
-            {/* Social Links */}
-            <div className="flex items-center gap-3">
-              {dynamicSocialLinks.map((social) => (
-                <a
-                  key={social.platform}
-                  href={social.href}
-                  aria-label={social.platform}
-                  className="w-9 h-9 rounded-full bg-stone-700 hover:bg-amber-700 flex items-center justify-center transition-colors duration-200 text-stone-300 hover:text-white"
-                >
-                  {social.icon}
-                </a>
-              ))}
-            </div>
+
+      <div className="max-w-7xl mx-auto px-20 py-10">
+        <div className="grid grid-cols-1 lg:grid-cols-[auto_2fr_1fr_2fr] gap-10">
+
+          <div className="flex flex-col items-center justify-center gap-1 min-w-[110px]">
+            <img
+              src={logoImg}
+              alt="Three Queens Logo"
+              className="h-28 w-auto object-contain"
+            />
+            <span className="text-xs font-bold tracking-[0.2em] text-[#3A1F0D] uppercase text-center">
+              THREE QUEENS
+            </span>
           </div>
 
-          {/* Navigation Column */}
-          <div>
-            <h4 className="text-white font-semibold text-sm uppercase tracking-wider mb-4">
-              Navigasi
-            </h4>
-            <ul className="space-y-2">
+
+          <div className="flex flex-col justify-center gap-1.5">
+            <h3 className="text-base font-bold text-[#1a1a1a] leading-snug">
+              Kami Menciptakan<br />Ruangan Impian Anda!
+            </h3>
+            <p className="text-sm text-stone-500 leading-relaxed mt-1">
+              "Kami adalah perusahaan Desain dan Workshop Interior yang mengutamakan kreativitas dan fungsionalitas untuk menciptakan ruang impian anda"
+            </p>
+          </div>
+
+
+          <div className="flex flex-col gap-2.5">
+            <h4 className="text-base font-bold text-[#1a1a1a]">Link</h4>
+            <ul className="space-y-1">
               {NAV_ITEMS.map((item) => (
                 <li key={item.href}>
                   <button
                     onClick={() => scrollTo(item.href)}
-                    className="text-sm text-stone-400 hover:text-amber-400 transition-colors duration-200 cursor-pointer"
+                    className="text-sm text-stone-600 hover:text-[#7a5c3a] transition-colors duration-200 cursor-pointer"
                   >
                     {item.label}
                   </button>
@@ -86,64 +94,50 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Services Column */}
-          <div>
-            <h4 className="text-white font-semibold text-sm uppercase tracking-wider mb-4">
-              Layanan
-            </h4>
-            <ul className="space-y-2">
-              {FOOTER_LINKS.services.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-sm text-stone-400 hover:text-amber-400 transition-colors duration-200"
-                  >
-                    {link.label}
-                  </a>
+
+          <div className="flex flex-col gap-2.5">
+            <h4 className="text-base font-bold text-[#1a1a1a]">Hubungi Kami</h4>
+            <ul className="space-y-1.5">
+              {contactInfo.map((info, i) => (
+                <li key={i} className="flex items-start gap-3 text-sm text-stone-600">
+                  <span className="mt-0.5 shrink-0">{info.icon}</span>
+                  <span className="leading-snug whitespace-pre-line">{info.value}</span>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Contact Column */}
-          <div>
-            <h4 className="text-white font-semibold text-sm uppercase tracking-wider mb-4">
-              Kontak
-            </h4>
-            <ul className="space-y-3">
-              {dynamicContactInfo.map((info) => (
-                <li key={info.label} className="flex items-start gap-2.5">
-                  <span className="flex-shrink-0 mt-1">{info.icon}</span>
-                  <div>
-                    <p className="text-xs text-stone-500">{info.label}</p>
-                    <p className="text-sm text-stone-300">{info.value}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
       </div>
 
-      {/* Bottom Bar */}
-      <div className="border-t border-stone-700">
-        <div className="max-w-7xl mx-auto px-20 py-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <p className="text-xs text-stone-500">
-            © {new Date().getFullYear()} Three Queens. All rights reserved.
-          </p>
-          <div className="flex items-center gap-4">
-            {FOOTER_LINKS.company.slice(0, 2).map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-xs text-stone-500 hover:text-amber-400 transition-colors duration-200"
-              >
-                {link.label}
-              </a>
-            ))}
-          </div>
-        </div>
+
+      <div className="max-w-7xl mx-auto px-20 w-full">
+        <div className="border-t-2 border-[#c9a97e] w-full" />
       </div>
+
+   
+      <div className="max-w-7xl mx-auto px-20 py-6 flex flex-col items-center gap-4">
+
+        <div className="flex items-center gap-3">
+          {socialLinks.map((social) => (
+            <a
+              key={social.label}
+              href={social.href}
+              aria-label={social.label}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-9 h-9 rounded-full border border-stone-300 flex items-center justify-center text-[#1a1a1a] hover:bg-[#A36D4D] hover:text-white hover:border-[#A36D4D] transition-all duration-500"
+            >
+              {social.icon}
+            </a>
+          ))}
+        </div>
+
+        <p className="text-xs text-stone-400">
+          @Copyright, All rights reserved.
+        </p>
+      </div>
+
     </footer>
   );
 };
