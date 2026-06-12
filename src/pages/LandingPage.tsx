@@ -7,6 +7,7 @@ import {
   PortfolioSection,
   AlurSection,
   KontakSection,
+  LayananSection,
 } from '../components/sections';
 
 const LandingPage = () => {
@@ -30,8 +31,9 @@ const LandingPage = () => {
   return (
     <>
       <HeroSection />
-      <ProdukSection />
       <TentangSection />
+      <LayananSection />
+      <ProdukSection />
       <PortfolioSection />
       <AlurSection />
       <KontakSection />

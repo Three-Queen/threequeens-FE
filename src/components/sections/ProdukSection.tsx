@@ -17,13 +17,13 @@ const ProdukSection = () => {
 
   return (
     <section id="produk" className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-20">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-20">
         
         {/* Section Header */}
         <SectionHeader
           title="Produk Kami"
           subtitle="Temukan furniture dan interior custom yang sempurna untuk ruangan Anda"
-          titleClassName="text-[32px] sm:text-[40px] font-bold text-[#4A2612]"
+          titleClassName="text-[32px] sm:text-[40px] font-bold text-[#1a1a1a]"
         />
 
         {/* Categories Filter */}
@@ -34,8 +34,8 @@ const ProdukSection = () => {
               onClick={() => setActiveCategory(cat.nama_kategori)}
               className={`px-7 py-2 rounded-full text-[14px] font-medium transition-all duration-200 border ${
                 activeCategory.toLowerCase() === cat.nama_kategori.toLowerCase()
-                  ? 'bg-[#D39C80] text-white border-[#D39C80]'
-                  : 'bg-white text-stone-500 border-stone-300 hover:border-[#D39C80] hover:text-[#D39C80]'
+                  ? 'bg-[#472404] text-white border-[#472404]'
+                  : 'bg-white text-stone-500 border-stone-300 hover:border-[#472404] hover:text-[#472404]'
               }`}
             >
               {cat.nama_kategori}
@@ -50,11 +50,10 @@ const ProdukSection = () => {
               <ProductCardSkeleton key={idx} />
             ))
           ) : (
-            filteredProducts.map((product) => (
-              <ProductCard 
-                key={product.id} 
-                product={product} 
-              />
+            filteredProducts.map((product, idx) => (
+              <div key={product.id} data-aos="fade-up" data-aos-delay={idx * 100}>
+                <ProductCard product={product} />
+              </div>
             ))
           )}
         </div>

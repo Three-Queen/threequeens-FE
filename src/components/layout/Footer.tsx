@@ -50,7 +50,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-[#faf9f7] text-[#1a1a1a] border-t border-[#c9a97e]">
+    <footer className="bg-[#faf9f7] text-[#1a1a1a] border-t border-[#472404]">
 
 
       <div className="max-w-7xl mx-auto px-20 py-10">
@@ -62,7 +62,7 @@ const Footer = () => {
               alt="Three Queens Logo"
               className="h-28 w-auto object-contain"
             />
-            <span className="text-xs font-bold tracking-[0.2em] text-[#3A1F0D] uppercase text-center">
+            <span className="text-xs font-bold tracking-[0.2em] text-[#472404] uppercase text-center">
               THREE QUEENS
             </span>
           </div>
@@ -112,7 +112,7 @@ const Footer = () => {
 
 
       <div className="max-w-7xl mx-auto px-20 w-full">
-        <div className="border-t-2 border-[#c9a97e] w-full" />
+        <div className="border-t-2 border-[#472404] w-full" />
       </div>
 
    
@@ -126,7 +126,7 @@ const Footer = () => {
               aria-label={social.label}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-9 h-9 rounded-full border border-stone-300 flex items-center justify-center text-[#1a1a1a] hover:bg-[#A36D4D] hover:text-white hover:border-[#A36D4D] transition-all duration-500"
+              className="w-9 h-9 rounded-full border border-stone-300 flex items-center justify-center text-[#1a1a1a] hover:bg-[#472404] hover:text-white hover:border-[#472404] transition-all duration-500"
             >
               {social.icon}
             </a>

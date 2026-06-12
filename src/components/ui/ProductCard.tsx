@@ -32,7 +32,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <div 
       onClick={handleCardClick}
-      className="bg-white border border-[#E5E7EB] flex flex-col hover:shadow-md transition-shadow duration-300 rounded-sm h-full group cursor-pointer hover:border-amber-400"
+      className="bg-white border border-[#E5E7EB] flex flex-col hover:shadow-md transition-shadow duration-300 rounded-sm h-full group cursor-pointer hover:border-[#472404]"
     >
       {/* Image Area */}
       <div className="w-full aspect-[4/3] bg-stone-100 flex items-center justify-center overflow-hidden relative">
@@ -47,7 +47,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         )}
         
         {/* Overlay hover indicator */}
-        <div className="absolute inset-0 bg-[#3A1F0D]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+        <div className="absolute inset-0 bg-[#472404]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
           <span className="bg-white/95 text-stone-900 text-xs font-semibold px-4 py-2 rounded-full shadow-sm transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
             Lihat Detail
           </span>
@@ -56,10 +56,10 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 
       {/* Content Area */}
       <div className="p-5 flex flex-col flex-grow">
-        <span className="text-[#C18F76] text-[11px] font-semibold uppercase tracking-wider mb-2">
+        <span className="text-[#472404] text-[11px] font-semibold uppercase tracking-wider mb-2">
           {product.category}
         </span>
-        <h3 className="font-extrabold text-[#111827] text-[16px] mb-2 leading-snug group-hover:text-amber-800 transition-colors">
+        <h3 className="font-extrabold text-[#111827] text-[16px] mb-2 leading-snug group-hover:text-[#472404] transition-colors">
           {product.title}
         </h3>
         <p className="text-[#6B7280] text-[13px] leading-relaxed mb-6 line-clamp-2">

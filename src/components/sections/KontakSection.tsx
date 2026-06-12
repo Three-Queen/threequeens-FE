@@ -21,19 +21,19 @@ const KontakSection = () => {
 
   const contactInfo = [
     {
-      icon: <LocationIcon className="w-4 h-4 text-[#3A1F0D]" />,
+      icon: <LocationIcon className="w-4 h-4 text-[#472404]" />,
       value: kontak.lokasi,
     },
     {
-      icon: <PhoneIcon className="w-4 h-4 text-[#3A1F0D]" />,
+      icon: <PhoneIcon className="w-4 h-4 text-[#472404]" />,
       value: kontak.whatsapp,
     },
     {
-      icon: <EmailIcon className="w-4 h-4 text-[#3A1F0D]" />,
+      icon: <EmailIcon className="w-4 h-4 text-[#472404]" />,
       value: kontak.email,
     },
     {
-      icon: <ClockIcon className="w-4 h-4 text-[#3A1F0D]" />,
+      icon: <ClockIcon className="w-4 h-4 text-[#472404]" />,
       value: kontak.jam_kerja,
     },
   ];
@@ -55,7 +55,7 @@ const KontakSection = () => {
     >
 
 
-      <div className="relative z-10 max-w-7xl mx-auto px-20 py-20">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-20 py-20">
 
 
         <h2 className="text-3xl font-bold text-[#1a1a1a] text-center mt-5 mb-24 tracking-tight">
@@ -63,7 +63,7 @@ const KontakSection = () => {
         </h2>
 
 
-        <div className="grid grid-cols-2 gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
 
           <div className="space-y-8">
 
@@ -90,11 +90,11 @@ const KontakSection = () => {
             </div>
 
           
-            <div className="border-t border-[#3A1F0D] w-2/3" />
+            <div className="border-t border-[#472404] w-2/3" />
             <div className="space-y-2">
               <h4 className="text-base font-bold text-[#1a1a1a] mb-4">Hubungi Kami</h4>
               {contactInfo.map((info, i) => (
-                <div key={i} className="flex items-start gap-3 text-sm text-[#3A1F0D]">
+                <div key={i} className="flex items-start gap-3 text-sm text-[#472404]">
                   <span className="mt-0.5 shrink-0">{info.icon}</span>
                   <span className="leading-snug whitespace-pre-line">{info.value}</span>
                 </div>
@@ -103,13 +103,12 @@ const KontakSection = () => {
           </div>
 
          
-          <div className="flex items-start justify-center">
-            <div className="w-full max-w-[420px] rounded-2xl overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.15)] border border-stone-200">
+          <div className="flex items-start justify-center lg:justify-end">
+            <div className="w-full max-w-full lg:max-w-[420px] rounded-2xl overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.15)] border border-stone-200">
               <iframe
                 title="Three Queens Interior Location"
                 src="https://maps.google.com/maps?q=Three+Queens+Interior+Karangtawang+Kuningan&output=embed&z=15"
-                width="100%"
-                height="300"
+                className="w-full h-[300px] md:h-[350px] lg:h-[300px]"
                 style={{ border: 0, display: 'block' }}
                 allowFullScreen
                 loading="lazy"

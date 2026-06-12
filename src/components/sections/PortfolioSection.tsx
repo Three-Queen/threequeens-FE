@@ -11,7 +11,7 @@ const PortfolioSection = () => {
 
   return (
     <section id="portfolio" className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-20">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-20">
 
         {/* Section Header */}
         <SectionHeader
@@ -46,7 +46,7 @@ const PortfolioSection = () => {
 
                 {/* Content Area */}
                 <div className="p-5 flex flex-col flex-grow">
-                  <span className="text-[#C18F76] text-[11px] font-semibold uppercase tracking-wider mb-2">
+                  <span className="text-[#472404] text-[11px] font-semibold uppercase tracking-wider mb-2">
                     {project.category || 'LIVING ROOM'}
                   </span>
                   <h3 className="font-extrabold text-[#111827] text-[16px] mb-2 leading-snug">

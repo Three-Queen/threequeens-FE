@@ -48,13 +48,13 @@ export const LandingDataProvider: React.FC<{ children: React.ReactNode }> = ({ c
   // Initialize with fallback/mock data
   const [data, setData] = useState<LandingData>({
     beranda: {
-      title: 'Three Queen Interior',
-      deskripsi: 'Hadirkan keindahan dan kenyamanan ke dalam setiap ruangan bersama Three Queen Interior. Kami menghadirkan solusi desain interior premium untuk hunian dan bisnis Anda.',
+      title: "Three Queen's Interior",
+      deskripsi: 'Mewujudkan Ruang Impian dengan Sentuhan Elegan dan Berkualitas.',
       background: null,
     },
     tentang: {
       title: 'Tentang Three Queen Interior',
-      deskripsi: 'Three Queen Interior adalah perusahaan desain interior terpercaya yang telah berpengalaman dalam menciptakan ruangan indah dan fungsional. Kami berkomitmen untuk memberikan solusi terbaik bagi setiap klien kami dengan mengutamakan kualitas, estetika, dan kepuasan pelanggan.',
+      deskripsi: 'Three Queen’s adalah perusahaan yang bergerak di bidang desain interior dan pembuatan furniture custom yang berdiri pada 11 Januari 2023. Kami hadir untuk memberikan solusi interior yang fungsional, estetik, dan sesuai kebutuhan setiap klien, baik untuk hunian, perkantoran, maupun ruang komersial.\n\nDengan mengutamakan kualitas material, ketelitian pengerjaan, serta desain yang menyesuaikan karakter dan kebutuhan pelanggan, Three Queen’s berkomitmen menghadirkan hasil terbaik yang menggabungkan keindahan dan kenyamanan dalam setiap proyek.',
       gambar1: null,
       gambar2: null,
     },
@@ -131,13 +131,13 @@ export const LandingDataProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
           setData({
             beranda: {
-              title: apiData.beranda.title || 'Three Queen Interior',
+              title: apiData.beranda.title ? apiData.beranda.title.replace('Three Queen', "Three Queen's") : "Three Queen's Interior",
               deskripsi: apiData.beranda.deskripsi || '',
               background: apiData.beranda.background,
             },
             tentang: {
               title: apiData.tentang.title || 'Tentang Three Queen Interior',
-              deskripsi: apiData.tentang.deskripsi || '',
+              deskripsi: 'Three Queen’s adalah perusahaan yang bergerak di bidang desain interior dan pembuatan furniture custom yang berdiri pada 11 Januari 2023. Kami hadir untuk memberikan solusi interior yang fungsional, estetik, dan sesuai kebutuhan setiap klien, baik untuk hunian, perkantoran, maupun ruang komersial.\n\nDengan mengutamakan kualitas material, ketelitian pengerjaan, serta desain yang menyesuaikan karakter dan kebutuhan pelanggan, Three Queen’s berkomitmen menghadirkan hasil terbaik yang menggabungkan keindahan dan kenyamanan dalam setiap proyek.',
               gambar1: apiData.tentang.gambar1,
               gambar2: apiData.tentang.gambar2,
             },

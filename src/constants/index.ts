@@ -6,8 +6,9 @@ import type { NavItem, Product, Project, OrderStep, ContactInfo, SocialLink } fr
 
 export const NAV_ITEMS: NavItem[] = [
   { label: 'Beranda', href: '#beranda' },
-  { label: 'Produk', href: '#produk' },
   { label: 'Tentang Kami', href: '#tentang' },
+  { label: 'Layanan', href: '#layanan' },
+  { label: 'Produk', href: '#produk' },
   { label: 'Portfolio', href: '#portfolio' },
   { label: 'Alur Pesanan', href: '#alur' },
   { label: 'Kontak', href: '#kontak' },
@@ -97,15 +98,14 @@ export const SOCIAL_LINKS: SocialLink[] = [
 
 export const FOOTER_LINKS = {
   company: [
+    { label: 'Beranda', href: '#beranda' },
     { label: 'Tentang Kami', href: '#tentang' },
-    { label: 'Portfolio', href: '#portfolio' },
-    { label: 'Karir', href: '#' },
-    { label: 'Blog', href: '#' },
+    { label: 'Layanan', href: '#layanan' },
+    { label: 'Produk', href: '#produk' },
   ],
   services: [
-    { label: 'Furniture Custom', href: '#' },
-    { label: 'Interior Design', href: '#' },
-    { label: 'Kitchen Set', href: '#' },
-    { label: 'Renovasi', href: '#' },
+    { label: 'Portfolio', href: '#portfolio' },
+    { label: 'Alur Pesanan', href: '#alur' },
+    { label: 'Kontak', href: '#kontak' },
   ],
 };

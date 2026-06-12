@@ -12,7 +12,7 @@ const HeroSection = () => {
   
   const titleParts = beranda.title.split(' ');
   const firstPart = titleParts[0] || 'Three';
-  const secondPart = titleParts.slice(1).join(' ') || 'Queens';
+  const secondPart = titleParts.slice(1).join(' ') || "Three Queen's";
 
   return (
     <section
@@ -24,18 +24,29 @@ const HeroSection = () => {
         backgroundPosition: 'center',
       }}
     >
-     
-      <div className="absolute inset-0 bg-[#3A1F0D]/30 z-0"></div>
+      {/* Overlay Coklat */}
+      <div className="absolute inset-0 bg-[#472404]/40 z-0"></div>
 
       
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-20 flex justify-end">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-20 flex justify-end">
         <div className="max-w-[700px] text-right mt-10">
-          <h1 className="text-6xl sm:text-7xl font-extrabold tracking-tight mb-4">
-            <span className="text-white">{firstPart} </span><span className="text-[#3A1F0D]">{secondPart}</span>
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-4">
+            <span className="text-white">{firstPart} </span><span className="text-[#472404]">{secondPart}</span>
           </h1>
-          <p className="text-white text-base sm:text-lg leading-relaxed text-right font-medium drop-shadow-sm">
+          <p className="text-white text-sm sm:text-base lg:text-lg leading-relaxed text-right font-medium drop-shadow-sm mb-6">
             {beranda.deskripsi}
           </p>
+          <div className="flex justify-end">
+            <a
+              href="#produk"
+              className="inline-flex items-center gap-2 bg-[#472404] hover:bg-[#5C3A1E] text-white font-semibold px-6 sm:px-8 py-2.5 sm:py-3 rounded-md transition-all duration-300 shadow-lg hover:shadow-xl text-sm sm:text-base"
+            >
+              Lihat Produk
+              <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
 

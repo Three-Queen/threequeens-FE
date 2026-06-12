@@ -76,7 +76,7 @@ const ProductDetailPage = () => {
         </p>
         <Link
           to="/"
-          className="inline-flex items-center gap-2 bg-[#A36D4D] hover:bg-[#8C5233] text-white font-semibold px-6 py-3 rounded-full transition-colors shadow-md"
+          className="inline-flex items-center gap-2 bg-[#472404] hover:bg-[#472404] text-white font-semibold px-6 py-3 rounded-full transition-colors shadow-md"
         >
           <ArrowLeftIcon className="w-5 h-5" />
           <span>Kembali ke Beranda</span>
@@ -94,7 +94,7 @@ const ProductDetailPage = () => {
         {/* Back Link */}
         <Link
           to="/"
-          className="inline-flex items-center gap-2 text-stone-500 hover:text-[#8C5233] text-sm font-bold mb-8 transition-colors group"
+          className="inline-flex items-center gap-2 text-stone-500 hover:text-[#472404] text-sm font-bold mb-8 transition-colors group"
         >
           <ArrowLeftIcon className="w-5 h-5 transform group-hover:-translate-x-1 transition-transform" />
           <span>Kembali ke Beranda</span>
@@ -216,7 +216,7 @@ const ProductDetailPage = () => {
                 />
               ) : (
                 <div className="text-center p-8 max-w-md">
-                  <div className="w-16 h-16 bg-[#A36D4D]/15 rounded-full flex items-center justify-center mx-auto mb-4 text-[#A36D4D]">
+                  <div className="w-16 h-16 bg-[#472404]/15 rounded-full flex items-center justify-center mx-auto mb-4 text-[#472404]">
                     <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
                     </svg>
@@ -229,7 +229,7 @@ const ProductDetailPage = () => {
                     href={product.desain3d} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 bg-[#A36D4D] hover:bg-[#8C5233] text-white text-xs font-bold px-6 py-3 rounded-lg transition-colors cursor-pointer"
+                    className="inline-flex items-center gap-2 bg-[#472404] hover:bg-[#472404] text-white text-xs font-bold px-6 py-3 rounded-lg transition-colors cursor-pointer"
                   >
                     Buka Model 3D di Tab Baru
                   </a>
