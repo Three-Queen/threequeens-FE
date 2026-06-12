@@ -8,15 +8,27 @@ const LayananSection = () => {
 
   const services = [
     {
-      title: 'Furniture Custom',
+      title: 'Interior Residential',
       image: layananImg,
       features: [
-        { icon: 'desk', text: 'Meja Kerja' },
-        { icon: 'reception', text: 'Meja Resepsionis' },
-        { icon: 'wardrobe', text: 'Lemari Penyimpanan' },
-        { icon: 'shelf', text: 'Rak Display' },
-        { icon: 'multi', text: 'Furniture Multifungsi' },
-        { icon: 'custom', text: 'Furniture Sesuai Desain dan Kebutuhan Klien' }
+        { icon: 'kitchen', text: 'Kitchen Set' },
+        { icon: 'wardrobe', text: 'Wardrobe / Lemari Pakaian' },
+        { icon: 'tv', text: 'TV Cabinet' },
+        { icon: 'bed', text: 'Bedroom Set' },
+        { icon: 'partition', text: 'Partisi Ruangan' },
+        { icon: 'vanity', text: 'Vanity & Meja Rias' },
+        { icon: 'laundry', text: 'Area Laundry' }
+      ]
+    },
+    {
+      title: 'Interior Komersial',
+      image: layananImg,
+      features: [
+        { icon: 'office', text: 'Kantor / Office Set' },
+        { icon: 'cafe', text: 'Cafe & Restoran' },
+        { icon: 'shop', text: 'Toko & Showroom' },
+        { icon: 'clinic', text: 'Klinik / Ruang Medis' },
+        { icon: 'hotel', text: 'Hotel & Penginapan' }
       ]
     },
     {
@@ -28,25 +40,86 @@ const LayananSection = () => {
         { icon: 'wardrobe', text: 'Lemari Penyimpanan' },
         { icon: 'shelf', text: 'Rak Display' },
         { icon: 'multi', text: 'Furniture Multifungsi' },
-        { icon: 'custom', text: 'Furniture Sesuai Desain dan Kebutuhan Klien' }
-      ]
-    },
-    {
-      title: 'Furniture Custom',
-      image: layananImg,
-      features: [
-        { icon: 'desk', text: 'Meja Kerja' },
-        { icon: 'reception', text: 'Meja Resepsionis' },
-        { icon: 'wardrobe', text: 'Lemari Penyimpanan' },
-        { icon: 'shelf', text: 'Rak Display' },
-        { icon: 'multi', text: 'Furniture Multifungsi' },
-        { icon: 'custom', text: 'Furniture Sesuai Desain dan Kebutuhan Klien' }
+        { icon: 'custom', text: 'Sesuai Desain Klien' }
       ]
     }
   ];
 
   const getIcon = (iconType: string): React.ReactElement => {
     const icons: Record<string, React.ReactElement> = {
+      kitchen: (
+        <svg className="w-full h-full" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M3 11h18M3 15h18M3 19h18M4 3h16a2 2 0 012 2v6H2V5a2 2 0 012-2z" />
+          <circle cx="7" cy="7" r="1" fill="currentColor" />
+          <circle cx="17" cy="7" r="1" fill="currentColor" />
+        </svg>
+      ),
+      wardrobe: (
+        <svg className="w-full h-full" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="4" y="2" width="16" height="20" rx="1" />
+          <line x1="12" y1="2" x2="12" y2="22" />
+          <circle cx="9" cy="12" r="0.8" fill="currentColor" />
+          <circle cx="15" cy="12" r="0.8" fill="currentColor" />
+        </svg>
+      ),
+      tv: (
+        <svg className="w-full h-full" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="2" y="3" width="20" height="12" rx="2" />
+          <path d="M12 15v4M8 21h8" />
+        </svg>
+      ),
+      bed: (
+        <svg className="w-full h-full" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M2 4v16M22 4v16M2 8h20M2 14h20" />
+          <path d="M6 11v3M10 11v3" />
+        </svg>
+      ),
+      partition: (
+        <svg className="w-full h-full" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M3 3h6v18H3zm12 0h6v18h-6z" />
+          <line x1="9" y1="9" x2="15" y2="9" />
+          <line x1="9" y1="15" x2="15" y2="15" />
+        </svg>
+      ),
+      vanity: (
+        <svg className="w-full h-full" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="8" r="5" />
+          <path d="M4 17h16v4H4z" />
+        </svg>
+      ),
+      laundry: (
+        <svg className="w-full h-full" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="4" y="3" width="16" height="18" rx="2" />
+          <circle cx="12" cy="12" r="3" />
+          <path d="M12 15h.01" />
+        </svg>
+      ),
+      office: (
+        <svg className="w-full h-full" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="7" width="18" height="10" rx="1" />
+          <path d="M3 10h18M10 14h4" />
+        </svg>
+      ),
+      cafe: (
+        <svg className="w-full h-full" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M17 8h1a4 4 0 110 8h-1M3 8h14v9a4 4 0 01-4 4H7a4 4 0 01-4-4V8zM6 2v3M10 2v3M14 2v3" />
+        </svg>
+      ),
+      shop: (
+        <svg className="w-full h-full" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2zM9 22V12h6v10" />
+        </svg>
+      ),
+      clinic: (
+        <svg className="w-full h-full" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 5v14M5 12h14" />
+        </svg>
+      ),
+      hotel: (
+        <svg className="w-full h-full" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 11-7.778 7.778 5.5 5.5 0 017.777-7.777zm0 0L15.5 7.5m0 0l3 3M13 10l3-3" />
+        </svg>
+      ),
       desk: (
         <svg className="w-full h-full" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <rect x="3" y="11" width="18" height="2" fill="currentColor" />
@@ -58,14 +131,6 @@ const LayananSection = () => {
       reception: (
         <svg className="w-full h-full" viewBox="0 0 24 24" fill="currentColor">
           <path d="M2 12h4v8H2zm7-8h4v16H9zm7 4h4v12h-4z" />
-        </svg>
-      ),
-      wardrobe: (
-        <svg className="w-full h-full" viewBox="0 0 24 24" fill="currentColor">
-          <rect x="4" y="2" width="16" height="20" rx="1" />
-          <line x1="12" y1="2" x2="12" y2="22" stroke="white" strokeWidth="0.5" />
-          <circle cx="9" cy="12" r="0.8" fill="white" />
-          <circle cx="15" cy="12" r="0.8" fill="white" />
         </svg>
       ),
       shelf: (
@@ -97,8 +162,8 @@ const LayananSection = () => {
     return icons[iconType] || icons.desk;
   };
 
-  const handleWhatsAppClick = () => {
-    const message = encodeURIComponent('Halo, saya ingin konsultasi mengenai layanan furniture custom Three Queen Interior.');
+  const handleWhatsAppClick = (serviceTitle: string) => {
+    const message = encodeURIComponent(`Halo Three Queens, saya ingin berkonsultasi mengenai Layanan ${serviceTitle}.`);
     window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
   };
 
@@ -135,10 +200,10 @@ const LayananSection = () => {
               key={index}
               data-aos="zoom-in"
               data-aos-delay={index * 100}
-              className="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-all duration-300 hover:shadow-2xl hover:ring-2 hover:ring-[#5C3A1E]"
+              className="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-all duration-300 hover:shadow-2xl hover:ring-2 hover:ring-[#5C3A1E] flex flex-col h-full"
             >
               {/* Image Container with Label */}
-              <div className="relative h-52 overflow-hidden">
+              <div className="relative h-52 overflow-hidden flex-shrink-0">
                 <img 
                   src={service.image} 
                   alt={service.title}
@@ -151,7 +216,7 @@ const LayananSection = () => {
               </div>
 
               {/* Features List */}
-              <div className="p-5 pb-3 space-y-2.5">
+              <div className="p-5 pb-3 space-y-2.5 flex-grow">
                 {service.features.map((feature, featureIndex) => (
                   <div key={featureIndex} className="flex items-start gap-3">
                     <div className="flex-shrink-0 w-5 h-5 mt-0.5 text-[#3D2817]">
@@ -163,14 +228,14 @@ const LayananSection = () => {
               </div>
 
               {/* Divider */}
-              <div className="px-5 pt-1">
+              <div className="px-5 pt-1 flex-shrink-0">
                 <div className="border-t border-gray-900"></div>
               </div>
 
               {/* WhatsApp Button */}
-              <div className="px-5 pb-5 pt-3">
+              <div className="px-5 pb-5 pt-3 flex-shrink-0">
                 <button
-                  onClick={handleWhatsAppClick}
+                  onClick={() => handleWhatsAppClick(service.title)}
                   className="w-full bg-white hover:bg-gray-50 text-[#5C3A1E] font-semibold py-3 px-6 rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-md hover:shadow-lg"
                 >
                   <svg className="w-6 h-6 text-[#5C3A1E]" fill="currentColor" viewBox="0 0 24 24">

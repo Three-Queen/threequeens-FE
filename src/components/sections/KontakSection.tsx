@@ -58,14 +58,17 @@ const KontakSection = () => {
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-20 py-20">
 
 
-        <h2 className="text-3xl font-bold text-[#1a1a1a] text-center mt-5 mb-24 tracking-tight">
+        <h2 
+          data-aos="fade-down"
+          className="text-3xl font-bold text-[#1a1a1a] text-center mt-5 mb-24 tracking-tight"
+        >
           Kontak Kami
         </h2>
 
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
 
-          <div className="space-y-8">
+          <div className="space-y-8" data-aos="fade-right">
 
             <div className="space-y-5">
               <h3 className="text-2xl font-bold text-[#1a1a1a] leading-snug">
@@ -103,7 +106,7 @@ const KontakSection = () => {
           </div>
 
          
-          <div className="flex items-start justify-center lg:justify-end">
+          <div className="flex items-start justify-center lg:justify-end" data-aos="fade-left">
             <div className="w-full max-w-full lg:max-w-[420px] rounded-2xl overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.15)] border border-stone-200">
               <iframe
                 title="Three Queens Interior Location"

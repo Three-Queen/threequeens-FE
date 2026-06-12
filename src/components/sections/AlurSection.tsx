@@ -36,10 +36,12 @@ const AlurSection = () => {
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-20">
 
         {/* Section Header */}
-        <SectionHeader
-          title="Alur Pesanan"
-          subtitle="Proses yang transparan dan profesional dari awal hingga akhir."
-        />
+        <div data-aos="fade-down">
+          <SectionHeader
+            title="Alur Pesanan"
+            subtitle="Proses yang transparan dan profesional dari awal hingga akhir."
+          />
+        </div>
 
         {/* Timeline Container */}
         <div className="relative mt-16 max-w-5xl mx-auto">
@@ -56,6 +58,7 @@ const AlurSection = () => {
               return (
                 <div 
                   key={step.step} 
+                  data-aos={isEven ? "fade-left" : "fade-right"}
                   className="relative flex flex-col lg:flex-row items-start lg:items-center w-full min-h-[90px]"
                 >
                   {/* Step Circle Badge */}

@@ -14,10 +14,12 @@ const PortfolioSection = () => {
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-20">
 
         {/* Section Header */}
-        <SectionHeader
-          title="Portofolio Proyek"
-          subtitle="Setiap proyek adalah hasil kolaborasi dengan pelanggan untuk mencapai ruang impian mereka"
-        />
+        <div data-aos="fade-down">
+          <SectionHeader
+            title="Portofolio Proyek"
+            subtitle="Setiap proyek adalah hasil kolaborasi dengan pelanggan untuk mencapai ruang impian mereka"
+          />
+        </div>
 
         {/* 3-Column Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -26,9 +28,11 @@ const PortfolioSection = () => {
               <ProjectCardSkeleton key={index} />
             ))
           ) : (
-            portfolios.map((project) => (
+            portfolios.map((project, idx) => (
               <div
                 key={project.id}
+                data-aos="fade-up"
+                data-aos-delay={(idx % 3) * 100}
                 className="bg-white border border-[#E5E7EB] flex flex-col hover:shadow-md transition-shadow duration-300 rounded-sm overflow-hidden"
               >
                 {/* Image Area */}

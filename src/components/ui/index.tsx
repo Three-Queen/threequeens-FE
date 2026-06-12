@@ -86,6 +86,23 @@ export const Button = ({
   );
 };
 
-export * from './Skeleton';
-export * from './Icons';
+export { Skeleton, ProductCardSkeleton, ProjectCardSkeleton } from './Skeleton';
+export {
+  MapIcon,
+  CalculatorIcon,
+  DesignIcon,
+  DocumentIcon,
+  HandshakeIcon,
+  FactoryIcon,
+  ToolsIcon,
+  CreditCardIcon,
+  LocationIcon,
+  PhoneIcon,
+  EmailIcon,
+  ClockIcon,
+  InstagramIcon,
+  FacebookIcon,
+  WhatsAppIcon,
+  ArrowLeftIcon,
+} from './Icons';
 

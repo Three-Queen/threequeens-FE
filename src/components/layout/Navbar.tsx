@@ -1,17 +1,66 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { NAV_ITEMS } from '../../constants';
 import { useScrolled, useSmoothScroll } from '../../hooks';
 import logoImg from '../../assets/images/LogoNavbar.png';
-
-
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('#beranda');
   const isScrolled = useScrolled(60);
   const { scrollTo } = useSmoothScroll();
+  const location = useLocation();
 
-  
+  useEffect(() => {
+    // If not on the homepage, highlight the "Produk" section active
+    if (location.pathname !== '/') {
+      const timer = setTimeout(() => {
+        setActiveSection('#produk');
+      }, 0);
+      return () => clearTimeout(timer);
+    }
+
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const docHeight = document.documentElement.scrollHeight;
+
+      // 1. If at the very top, highlight Beranda
+      if (scrollPosition < 100) {
+        setActiveSection('#beranda');
+        return;
+      }
+
+      // 2. If at the very bottom, highlight Kontak
+      if (scrollPosition + windowHeight >= docHeight - 100) {
+        setActiveSection('#kontak');
+        return;
+      }
+
+      // 3. Check which section is currently in view
+      const sectionIds = ['beranda', 'tentang', 'layanan', 'produk', 'portfolio', 'alur', 'kontak'];
+      
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          // Consider active if the section spans across the 30% trigger line from screen top
+          const triggerPoint = windowHeight * 0.3;
+          if (rect.top <= triggerPoint && rect.bottom >= triggerPoint) {
+            setActiveSection(`#${id}`);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    // Run initially to set the correct active section on load
+    handleScroll();
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [location.pathname]);
+
   const handleNavClick = (href: string) => {
     scrollTo(href);
     setIsMenuOpen(false);
