@@ -9,7 +9,7 @@ export const NAV_ITEMS: NavItem[] = [
   { label: 'Tentang Kami', href: '#tentang' },
   { label: 'Layanan', href: '#layanan' },
   { label: 'Produk', href: '#produk' },
-  { label: 'Portfolio', href: '#portfolio' },
+  { label: 'Portofolio', href: '#portfolio' },
   { label: 'Alur Pesanan', href: '#alur' },
   { label: 'Kontak', href: '#kontak' },
 ];
@@ -112,7 +112,7 @@ export const FOOTER_LINKS = {
     { label: 'Produk', href: '#produk' },
   ],
   services: [
-    { label: 'Portfolio', href: '#portfolio' },
+    { label: 'Portofolio', href: '#portfolio' },
     { label: 'Alur Pesanan', href: '#alur' },
     { label: 'Kontak', href: '#kontak' },
   ],

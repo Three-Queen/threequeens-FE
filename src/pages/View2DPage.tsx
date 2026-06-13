@@ -38,7 +38,7 @@ const View2DPage = () => {
     window.close();
     setTimeout(() => {
       if (product) {
-        navigate(`/produk/${product.id}`);
+        navigate(`/produk/${product.kode_produk || product.id}`);
       } else {
         navigate('/produk');
       }

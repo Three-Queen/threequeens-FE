@@ -51,7 +51,7 @@ const ProductDetailPage = () => {
   const { kontak } = data;
   const [isDescExpanded, setIsDescExpanded] = useState(false);
 
-  const product = data.products.find((p) => p.id === Number(id));
+  const product = data.products.find((p) => p.kode_produk === id || String(p.id) === id);
 
   // Tab state for 2D vs 3D views
   const [activeDesignTab, setActiveDesignTab] = useState<'3d' | '2d'>(
@@ -96,7 +96,7 @@ const ProductDetailPage = () => {
     if (!formattedWA) {
       formattedWA = '6281234567890';
     }
-    
+
     const message = type === 'konsultasi'
       ? `Halo Three Queens, saya tertarik dan ingin berkonsultasi mengenai produk: ${product.title}`
       : `Halo Three Queens, saya ingin menghubungi Anda untuk mendiskusikan pemesanan produk: ${product.title}`;
@@ -173,13 +173,13 @@ const ProductDetailPage = () => {
   const embedUrl = product.desain3d ? getEmbedUrl(product.desain3d) : '';
   const descText = product.description || 'Deskripsi produk belum tersedia.';
   const shouldTruncate = descText.length > 250;
-  const displayedDesc = shouldTruncate && !isDescExpanded 
-    ? descText.slice(0, 250) + '...' 
+  const displayedDesc = shouldTruncate && !isDescExpanded
+    ? descText.slice(0, 250) + '...'
     : descText;
 
   return (
     <div className="pt-[60px] pb-24 bg-white min-h-screen">
-      <SEO 
+      <SEO
         title={`${product.title} - Custom Furniture`}
         description={product.description ? (product.description.length > 155 ? product.description.slice(0, 155) + '...' : product.description) : `Jasa pembuatan custom furniture ${product.title} berkualitas di Kuningan oleh Three Queen's Interior.`}
         keywords={`${product.title.toLowerCase()}, custom ${product.category.toLowerCase()}, furniture custom kuningan, kitchen set kuningan, three queens interior`}
@@ -197,10 +197,10 @@ const ProductDetailPage = () => {
         </Link>
 
         {product.image ? (
-          <img 
-            src={product.image} 
-            alt={product.title} 
-            className="w-full h-full object-cover" 
+          <img
+            src={product.image}
+            alt={product.title}
+            className="w-full h-full object-cover"
           />
         ) : (
           <div className="text-stone-400 text-sm h-full flex items-center justify-center">Gambar tidak tersedia.</div>
@@ -208,8 +208,8 @@ const ProductDetailPage = () => {
       </div>
 
       {/* Main Content Area */}
-      <div className="max-w-4xl mx-auto px-6 sm:px-8 py-10 md:py-16">
-        
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-20 pt-6 md:pt-8 pb-10 md:pb-16">
+
         {/* Title Block with Floating WhatsApp */}
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-8">
           <div className="flex-grow">
@@ -222,7 +222,7 @@ const ProductDetailPage = () => {
               {product.title}
             </h1>
             {/* Price block */}
-            <p className="font-bold text-[#111827] text-base sm:text-lg mt-3">
+            <p className="font-bold text-[#111827] text-base sm:text-s mt-1">
               <span className="text-stone-500 font-medium mr-1.5">Mulai Dari</span>
               {product.price || 'Rp -'}
             </p>
@@ -259,10 +259,10 @@ const ProductDetailPage = () => {
         {/* Lihat Desain Section */}
         <div className="mt-10 border-t border-stone-100 pt-8">
           <h2 className="font-extrabold text-[#111827] text-lg md:text-xl mb-2">Lihat Desain</h2>
-          
+
           {/* Subtitle instructions based on active tab */}
           <p className="text-stone-500 text-sm mb-6">
-            {activeDesignTab === '3d' 
+            {activeDesignTab === '3d'
               ? 'Gunakan mouse Anda (klik & seret untuk memutar, scroll untuk zoom) untuk melihat rancangan ini dari berbagai sudut secara detail.'
               : 'Gunakan lembar teknis blueprint 2D untuk melihat spesifikasi detail ukuran, tata letak, dan konstruksi produk.'}
           </p>
@@ -272,11 +272,10 @@ const ProductDetailPage = () => {
             <div className="flex justify-center gap-3 mb-8">
               <button
                 onClick={() => setActiveDesignTab('3d')}
-                className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 cursor-pointer ${
-                  activeDesignTab === '3d'
-                    ? 'bg-[#472404] text-white shadow-sm'
-                    : 'bg-stone-100 text-stone-600 hover:bg-stone-200/60'
-                }`}
+                className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 cursor-pointer ${activeDesignTab === '3d'
+                  ? 'bg-[#472404] text-white shadow-sm'
+                  : 'bg-stone-100 text-stone-600 hover:bg-stone-200/60'
+                  }`}
               >
                 {/* 3D Cube Icon */}
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -287,11 +286,10 @@ const ProductDetailPage = () => {
 
               <button
                 onClick={() => setActiveDesignTab('2d')}
-                className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 cursor-pointer ${
-                  activeDesignTab === '2d'
-                    ? 'bg-[#472404] text-white shadow-sm'
-                    : 'bg-stone-100 text-stone-600 hover:bg-stone-200/60'
-                }`}
+                className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 cursor-pointer ${activeDesignTab === '2d'
+                  ? 'bg-[#472404] text-white shadow-sm'
+                  : 'bg-stone-100 text-stone-600 hover:bg-stone-200/60'
+                  }`}
               >
                 {/* Document Icon */}
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -304,7 +302,7 @@ const ProductDetailPage = () => {
 
           {/* Tab 1: 3D Visualization */}
           {activeDesignTab === '3d' && product.desain3d && (
-            <div 
+            <div
               style={{ backgroundColor: '#E9E9E9' }}
               className="w-full aspect-[16/10] rounded-xl overflow-hidden shadow-md border border-stone-200 flex items-center justify-center relative mb-6"
             >
@@ -317,8 +315,8 @@ const ProductDetailPage = () => {
                   style={{ width: '100%', height: '100%', display: 'block', backgroundColor: '#E9E9E9' }}
                 />
               ) : (
-                <iframe 
-                  src={embedUrl} 
+                <iframe
+                  src={embedUrl}
                   title="3D Model Viewer"
                   className="w-full h-full border-0 bg-transparent"
                   allowFullScreen
@@ -337,9 +335,9 @@ const ProductDetailPage = () => {
             <div className="space-y-4">
               <div className="w-full aspect-[16/10] bg-stone-100 rounded-xl overflow-hidden border border-stone-200 flex items-center justify-center relative shadow-sm">
                 {product.desain2d.match(/\.(jpg|jpeg|png|webp|gif|svg)/i) || !product.desain2d.includes('pdf') ? (
-                  <img 
-                    src={getProxyUrl(product.desain2d)} 
-                    alt="Gambar Kerja 2D" 
+                  <img
+                    src={getProxyUrl(product.desain2d)}
+                    alt="Gambar Kerja 2D"
                     className="w-full h-full object-contain p-2 select-none"
                     draggable={false}
                     onContextMenu={(e) => e.preventDefault()}
@@ -419,7 +417,7 @@ const ProductDetailPage = () => {
         aria-label="Tanya Produk via WhatsApp"
       >
         <WhatsAppIcon className="w-7 h-7" />
-        
+
         {/* Tooltip on Hover */}
         <span className="absolute right-16 bg-stone-900/90 text-white text-xs font-semibold px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap shadow-md pointer-events-none hidden md:block backdrop-blur-sm">
           Hubungi via WhatsApp

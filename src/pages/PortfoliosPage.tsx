@@ -208,7 +208,7 @@ const PortfoliosPage = () => {
                 <ProjectCard 
                   project={project} 
                   idx={idx} 
-                  onClick={() => navigate(`/portofolio/${project.id}`)} 
+                  onClick={() => navigate(`/portofolio/${project.slug || project.id}`)} 
                 />
               </div>
             ))}

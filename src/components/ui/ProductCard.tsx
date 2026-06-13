@@ -12,7 +12,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   const { kontak } = data;
 
   const handleCardClick = () => {
-    navigate(`/produk/${product.id}`);
+    navigate(`/produk/${product.kode_produk || product.id}`);
   };
 
   const handleWATanya = (e: React.MouseEvent) => {

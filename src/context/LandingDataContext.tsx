@@ -84,9 +84,9 @@ export const LandingDataProvider: React.FC<{ children: React.ReactNode }> = ({ c
   });
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = async (isBackground = false) => {
       try {
-        setLoading(true);
+        if (!isBackground) setLoading(true);
         const response = await fetch(`${API_BASE_URL}/api/landing`);
         if (!response.ok) {
           throw new Error(`Gagal mengambil data dari API: ${response.statusText}`);
@@ -98,6 +98,7 @@ export const LandingDataProvider: React.FC<{ children: React.ReactNode }> = ({ c
           // Map products
           const mappedProducts: Product[] = apiData.products.map((item: any) => ({
             id: item.id,
+            kode_produk: item.kode_produk || item.id.toString(),
             title: item.nama_produk,
             category: item.kategori || 'Lainnya',
             image: item.gambar_url || '',
@@ -135,13 +136,17 @@ export const LandingDataProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
             return {
               id: item.id,
+              slug: item.slug || item.id.toString(),
               title: item.nama_proyek,
               description: item.deskripsi || undefined,
               location: item.lokasi,
               image: item.dokumentasi_url || '',
-              category: category,
+              category: item.kategori || category,
               waktuPengerjaan: item.waktu_proyek || null,
+              durasiPengerjaan: item.durasi_pengerjaan || null,
               googleMaps: item.lokasi_google_maps || null,
+              galeri: item.galeri || [],
+              produk: item.produk || [],
             };
           });
 
@@ -186,11 +191,29 @@ export const LandingDataProvider: React.FC<{ children: React.ReactNode }> = ({ c
         console.error(err);
         setError(err.message || 'Gagal memuat data dari API.');
       } finally {
-        setLoading(false);
+        if (!isBackground) setLoading(false);
       }
     };
 
+    // Initial fetch
     fetchData();
+
+    // Auto-refresh (Polling) every 10 seconds
+    const intervalId = setInterval(() => {
+      fetchData(true);
+    }, 10000);
+
+    // Auto-refresh when user switches back to the tab
+    const onFocus = () => {
+      fetchData(true);
+    };
+    window.addEventListener('focus', onFocus);
+
+    // Cleanup listeners
+    return () => {
+      clearInterval(intervalId);
+      window.removeEventListener('focus', onFocus);
+    };
   }, []);
 
   const submitMessage = async (form: { name: string; email: string; phone: string; message: string }) => {

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useLandingData } from '../context/LandingDataContext';
 import { ArrowLeftIcon, WhatsAppIcon, PhoneIcon } from '../components/ui/Icons';
+import { ProductCard } from '../components/ui/ProductCard';
 import SEO from '../components/SEO';
 
 const PortfolioDetailPage = () => {
@@ -10,7 +11,7 @@ const PortfolioDetailPage = () => {
   const { kontak } = data;
   const [isDescExpanded, setIsDescExpanded] = useState(false);
 
-  const project = data.portfolios.find((p) => p.id === Number(id));
+  const project = data.portfolios.find((p) => p.slug === id || String(p.id) === id);
 
   // Scroll to top on mount
   useEffect(() => {
@@ -107,14 +108,14 @@ const PortfolioDetailPage = () => {
       </div>
 
       {/* Main Content Area */}
-      <div className="max-w-4xl mx-auto px-6 sm:px-8 py-10 md:py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-20 pt-6 md:pt-8 pb-10 md:pb-16">
         
         {/* Title Block */}
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-8">
           <div className="flex-grow">
-            {/* Category and Location Tag */}
+            {/* Category Tag */}
             <p className="text-stone-400 text-[13px] md:text-sm font-semibold uppercase tracking-wider mb-2">
-              {project.category || 'LIVING ROOM'} — {project.location}
+              {project.category || 'LIVING ROOM'}
             </p>
             {/* Main Title */}
             <h1 className="font-extrabold text-[#111827] text-2xl sm:text-3xl md:text-4xl leading-tight">
@@ -124,27 +125,23 @@ const PortfolioDetailPage = () => {
         </div>
 
         {/* Project Info Block */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 p-6 bg-stone-50 rounded-xl border border-stone-200/60 mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 p-4 sm:p-6 bg-stone-50 rounded-xl border border-stone-200/60 mb-10">
           <div>
-            <span className="text-stone-400 text-xs uppercase tracking-wide block mb-1">Waktu Pengerjaan</span>
-            <span className="font-bold text-stone-900 text-sm md:text-base">
-              {project.waktuPengerjaan || '2 Bulan'}
+            <span className="text-stone-400 text-[10px] sm:text-xs uppercase tracking-wide block mb-1">Lokasi</span>
+            <span className="font-bold text-stone-900 text-sm md:text-base flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-1.5">
+              <span className="line-clamp-1">{project.location}</span>
             </span>
           </div>
           <div>
-            <span className="text-stone-400 text-xs uppercase tracking-wide block mb-1">Lokasi Proyek</span>
-            <span className="font-bold text-stone-900 text-sm md:text-base flex items-center gap-1.5">
-              <span>{project.location}</span>
-              {project.googleMaps && (
-                <a 
-                  href={project.googleMaps} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="text-amber-700 hover:text-amber-800 transition-colors text-xs font-bold underline flex items-center gap-0.5"
-                >
-                  (Buka Maps)
-                </a>
-              )}
+            <span className="text-stone-400 text-[10px] sm:text-xs uppercase tracking-wide block mb-1">Waktu Proyek</span>
+            <span className="font-bold text-stone-900 text-sm md:text-base line-clamp-1">
+              {project.waktuPengerjaan ? new Date(project.waktuPengerjaan).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' }) : '-'}
+            </span>
+          </div>
+          <div>
+            <span className="text-stone-400 text-[10px] sm:text-xs uppercase tracking-wide block mb-1">Durasi</span>
+            <span className="font-bold text-stone-900 text-sm md:text-base line-clamp-1">
+              {project.durasiPengerjaan || '-'}
             </span>
           </div>
         </div>
@@ -166,6 +163,40 @@ const PortfolioDetailPage = () => {
             )}
           </div>
         </div>
+
+        {/* Galeri Tambahan */}
+        {project.galeri && project.galeri.length > 0 && (
+          <div className="mt-10 border-t border-stone-100 pt-8">
+            <h2 className="font-extrabold text-[#111827] text-lg md:text-xl mb-6">Galeri Tambahan</h2>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {project.galeri.map((g, idx) => (
+                <div key={idx} className="aspect-[4/3] rounded-xl overflow-hidden bg-stone-100 relative group shadow-sm border border-stone-200/50">
+                  <img src={g} alt={`Galeri ${idx + 1} - ${project.title}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Produk Terkait */}
+        {project.produk && project.produk.length > 0 && (
+          <div className="mt-10 border-t border-stone-100 pt-8">
+            <h2 className="font-extrabold text-[#111827] text-lg md:text-xl mb-6">Produk yang Terkait</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {project.produk.map((prod: any, idx: number) => {
+                const mappedProduct = {
+                  id: idx,
+                  kode_produk: prod.kode_produk,
+                  title: prod.nama_produk,
+                  category: project.category || 'Interior',
+                  image: prod.gambar_url,
+                  description: prod.deskripsi_produk,
+                };
+                return <ProductCard key={idx} product={mappedProduct} />;
+              })}
+            </div>
+          </div>
+        )}
 
         {/* CTA Footer Block */}
         <div className="mt-16 pt-12 border-t border-stone-100 text-center">

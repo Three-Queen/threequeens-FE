@@ -9,6 +9,7 @@ export interface NavItem {
 
 export interface Product {
   id: number;
+  kode_produk?: string;
   title: string;
   category: string;
   image: string;
@@ -21,13 +22,17 @@ export interface Product {
 
 export interface Project {
   id: number;
+  slug?: string;
   title: string;
   location: string;
   image: string;
   description?: string;
   category?: string;
   waktuPengerjaan?: string | null;
+  durasiPengerjaan?: string | null;
   googleMaps?: string | null;
+  galeri?: string[];
+  produk?: any[];
 }
 
 export interface OrderStep {
