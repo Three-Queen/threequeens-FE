@@ -32,7 +32,7 @@ const getStepIcon = (stepNumber: number) => {
 
 const AlurSection = () => {
   return (
-    <section id="alur" className="py-24 bg-white">
+    <section id="alur" className="pt-16 pb-24 bg-white">
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-20">
 
         {/* Section Header */}

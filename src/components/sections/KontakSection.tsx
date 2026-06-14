@@ -41,7 +41,7 @@ const KontakSection = () => {
   return (
     <section
       id="kontak"
-      className="relative w-full overflow-hidden"
+      className="relative w-full overflow-hidden min-h-[calc(100vh-60px)] flex flex-col justify-center"
       style={{
         backgroundColor: '#f9f7f4',
         backgroundImage: `
@@ -55,20 +55,20 @@ const KontakSection = () => {
     >
 
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-20 py-20">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-20 pt-10 pb-12">
 
 
         <h2 
           data-aos="fade-down"
-          className="text-3xl font-bold text-[#1a1a1a] text-center mt-5 mb-12 md:mb-24 tracking-tight"
+          className="text-3xl font-bold text-[#1a1a1a] text-center mb-6 md:mb-10 tracking-tight"
         >
           Kontak Kami
         </h2>
 
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
 
-          <div className="space-y-8" data-aos="fade-right">
+          <div className="space-y-6" data-aos="fade-right">
 
             <div className="space-y-5">
               <h3 className="text-2xl font-bold text-[#1a1a1a] leading-snug">
@@ -111,7 +111,7 @@ const KontakSection = () => {
               <iframe
                 title="Three Queens Interior Location"
                 src="https://maps.google.com/maps?q=Three+Queens+Interior+Karangtawang+Kuningan&output=embed&z=15"
-                className="w-full h-[300px] md:h-[350px] lg:h-[300px]"
+                className="w-full h-[240px] md:h-[260px] lg:h-[240px]"
                 style={{ border: 0, display: 'block' }}
                 allowFullScreen
                 loading="lazy"

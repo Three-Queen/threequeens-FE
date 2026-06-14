@@ -63,4 +63,9 @@ body {
 .no-scrollbar {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
+}
+
+/* Native scroll offset for sections when navigated via fixed floating navbar */
+section[id] {
+  scroll-margin-top: 60px; /* Exact height of the floating navbar */
 }

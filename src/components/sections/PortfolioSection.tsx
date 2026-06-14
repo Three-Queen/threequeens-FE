@@ -15,7 +15,7 @@ const PortfolioSection = () => {
   const featuredPortfolios = portfolios.slice(0, 6);
 
   return (
-    <section id="portfolio" className="py-20 bg-white">
+    <section id="portfolio" className="pt-16 pb-20 bg-white">
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-20">
 
         {/* Section Header */}

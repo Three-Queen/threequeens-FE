@@ -24,7 +24,7 @@ const ProdukSection = () => {
   const displayedProducts = filteredProducts.slice(0, 6);
 
   return (
-    <section id="produk" className="py-20 bg-white">
+    <section id="produk" className="pt-16 pb-20 bg-white">
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-20">
         
         {/* Section Header */}
