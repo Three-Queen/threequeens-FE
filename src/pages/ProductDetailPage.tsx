@@ -45,28 +45,6 @@ const getEmbedUrl = (url: string) => {
   return embed;
 };
 
-const parse2DImages = (desain2d: any): string[] => {
-  if (!desain2d) return [];
-  if (Array.isArray(desain2d)) {
-    return desain2d.map(item => String(item).trim());
-  }
-  const trimmed = String(desain2d).trim();
-  if (trimmed.startsWith('[') && trimmed.endsWith(']')) {
-    try {
-      const parsed = JSON.parse(trimmed);
-      if (Array.isArray(parsed)) {
-        return parsed.map(item => String(item).trim());
-      }
-    } catch (e) {
-      // ignore
-    }
-  }
-  if (trimmed.includes(',')) {
-    return trimmed.split(',').map(item => item.trim()).filter(Boolean);
-  }
-  return [trimmed];
-};
-
 const ProductDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const { data, loading } = useLandingData();
@@ -80,15 +58,7 @@ const ProductDetailPage = () => {
     product?.desain3d ? '3d' : '2d'
   );
 
-  const [active2dIndex, setActive2dIndex] = useState(0);
-
-  const productId = product?.id || product?.kode_produk;
-
-  const images2d = parse2DImages(product?.desain2d);
-  const active2dImage = images2d[active2dIndex] || '';
-
   useEffect(() => {
-    setActive2dIndex(0);
     if (product) {
       const tab = product.desain3d ? '3d' : '2d';
       const timer = setTimeout(() => {
@@ -96,7 +66,7 @@ const ProductDetailPage = () => {
       }, 0);
       return () => clearTimeout(timer);
     }
-  }, [productId]);
+  }, [product]);
 
   // Scroll to top on mount
   useEffect(() => {
@@ -208,7 +178,7 @@ const ProductDetailPage = () => {
     : descText;
 
   return (
-    <div className="pt-[60px] pb-12 bg-[#FAF9F7] min-h-screen">
+    <div className="pt-[60px] pb-24 bg-white min-h-screen">
       <SEO
         title={`${product.title} - Custom Furniture`}
         description={product.description ? (product.description.length > 155 ? product.description.slice(0, 155) + '...' : product.description) : `Jasa pembuatan custom furniture ${product.title} berkualitas di Kuningan oleh Three Queen's Interior.`}
@@ -216,7 +186,7 @@ const ProductDetailPage = () => {
         image={product.image}
       />
       {/* Banner / Hero Image (Full Width directly below navbar) */}
-      <div className="w-full h-[250px] sm:h-[300px] md:h-[380px] lg:h-[440px] bg-stone-100 overflow-hidden relative">
+      <div className="w-full h-[250px] sm:h-[350px] md:h-[480px] lg:h-[540px] bg-stone-100 overflow-hidden relative">
         {/* Floating Back Button */}
         <Link
           to="/produk"
@@ -238,10 +208,10 @@ const ProductDetailPage = () => {
       </div>
 
       {/* Main Content Area */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-20 pt-3 sm:pt-4 pb-0 flex flex-col gap-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-20 pt-6 md:pt-8 pb-10 md:pb-16">
 
         {/* Title Block with Floating WhatsApp */}
-        <div className="bg-white rounded-2xl border border-stone-200/40 shadow-sm p-6 sm:p-8 flex flex-col md:flex-row md:items-start justify-between gap-6">
+        <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-8">
           <div className="flex-grow">
             {/* Category Subtags */}
             <p className="text-stone-400 text-[13px] md:text-sm font-medium tracking-wide mb-1.5">
@@ -252,17 +222,18 @@ const ProductDetailPage = () => {
               {product.title}
             </h1>
             {/* Price block */}
-            <p className="font-bold text-[#111827] text-base sm:text-lg mt-1.5">
+            <p className="font-bold text-[#111827] text-base sm:text-s mt-1">
               <span className="text-stone-500 font-medium mr-1.5">Mulai Dari</span>
               {product.price || 'Rp -'}
             </p>
           </div>
+
         </div>
 
         {/* Deskripsi Produk Section */}
-        <div className="bg-white rounded-2xl border border-stone-200/40 shadow-sm p-6 sm:p-8">
+        <div className="mt-10 border-t border-stone-100 pt-8">
           <h2 className="font-extrabold text-[#111827] text-lg md:text-xl mb-4">Deskripsi Produk</h2>
-          <div className="text-stone-600 text-sm md:text-base leading-relaxed text-justify mb-6">
+          <div className="text-stone-600 text-sm md:text-base leading-relaxed text-justify">
             <p className="whitespace-pre-line inline">
               {displayedDesc}
             </p>
@@ -275,24 +246,19 @@ const ProductDetailPage = () => {
               </button>
             )}
           </div>
+        </div>
 
-          {/* Timeline Proyek Inline inside Description Card */}
-          <div className="border-t border-stone-100 pt-5 flex items-center gap-3">
-            <div className="w-10 h-10 bg-[#472404]/5 text-[#472404] rounded-xl flex items-center justify-center shrink-0">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <div>
-              <span className="text-stone-400 text-[11px] sm:text-xs uppercase tracking-wide block mb-0.5">Timeline Pengerjaan</span>
-              <span className="font-bold text-stone-800 text-sm sm:text-base">{product.pengerjaan || '4 Bulan'}</span>
-            </div>
-          </div>
+        {/* Timeline Proyek Section */}
+        <div className="mt-10 border-t border-stone-100 pt-8">
+          <h2 className="font-extrabold text-[#111827] text-lg md:text-xl mb-2">Timeline Proyek</h2>
+          <p className="text-stone-600 text-sm md:text-base font-medium">
+            {product.pengerjaan || '4 Bulan'}
+          </p>
         </div>
 
         {/* Lihat Desain Section */}
-        <div className="mt-6 bg-white rounded-2xl border border-stone-200/40 shadow-sm p-6 sm:p-8">
-          <h2 className="font-extrabold text-[#111827] text-lg md:text-xl mb-2">Visualisasi Desain</h2>
+        <div className="mt-10 border-t border-stone-100 pt-8">
+          <h2 className="font-extrabold text-[#111827] text-lg md:text-xl mb-2">Lihat Desain</h2>
 
           {/* Subtitle instructions based on active tab */}
           <p className="text-stone-500 text-sm mb-6">
@@ -302,7 +268,7 @@ const ProductDetailPage = () => {
           </p>
 
           {/* Tab / Chip Switcher (Visible only if both 2D and 3D designs exist) */}
-          {product.desain3d && images2d.length > 0 && (
+          {product.desain3d && product.desain2d && (
             <div className="flex justify-center gap-3 mb-8">
               <button
                 onClick={() => setActiveDesignTab('3d')}
@@ -315,8 +281,7 @@ const ProductDetailPage = () => {
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 4L4 8l8 4 8-4-8-4zM4 12l8 4 8-4M4 16l8 4 8-4" />
                 </svg>
-                <span className="hidden sm:inline">Visualisasi 3D Interaktif</span>
-                <span className="sm:hidden">3D Model</span>
+                <span>Visualisasi 3D Interaktif</span>
               </button>
 
               <button
@@ -330,8 +295,7 @@ const ProductDetailPage = () => {
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
-                <span className="hidden sm:inline">Gambar Kerja 2D</span>
-                <span className="sm:hidden">Gambar 2D</span>
+                <span>Gambar Kerja 2D</span>
               </button>
             </div>
           )}
@@ -340,7 +304,7 @@ const ProductDetailPage = () => {
           {activeDesignTab === '3d' && product.desain3d && (
             <div
               style={{ backgroundColor: '#E9E9E9' }}
-              className="w-full aspect-[4/3] sm:aspect-[16/10] rounded-xl overflow-hidden shadow-md border border-stone-200 flex items-center justify-center relative mb-6"
+              className="w-full aspect-[16/10] rounded-xl overflow-hidden shadow-md border border-stone-200 flex items-center justify-center relative mb-6"
             >
               {isDirectModel(product.desain3d) ? (
                 <model-viewer
@@ -367,13 +331,13 @@ const ProductDetailPage = () => {
           )}
 
           {/* Tab 2: 2D Blueprint */}
-          {activeDesignTab === '2d' && images2d.length > 0 && (
+          {activeDesignTab === '2d' && product.desain2d && (
             <div className="space-y-4">
-              <div className="w-full aspect-[4/3] sm:aspect-[16/10] bg-stone-100 rounded-xl overflow-hidden border border-stone-200 flex items-center justify-center relative shadow-sm">
-                {active2dImage.match(/\.(jpg|jpeg|png|webp|gif|svg)/i) || !active2dImage.includes('pdf') ? (
+              <div className="w-full aspect-[16/10] bg-stone-100 rounded-xl overflow-hidden border border-stone-200 flex items-center justify-center relative shadow-sm">
+                {product.desain2d.match(/\.(jpg|jpeg|png|webp|gif|svg)/i) || !product.desain2d.includes('pdf') ? (
                   <img
-                    src={getProxyUrl(active2dImage)}
-                    alt={`Gambar Kerja 2D - Halaman ${active2dIndex + 1}`}
+                    src={getProxyUrl(product.desain2d)}
+                    alt="Gambar Kerja 2D"
                     className="w-full h-full object-contain p-2 select-none"
                     draggable={false}
                     onContextMenu={(e) => e.preventDefault()}
@@ -393,51 +357,16 @@ const ProductDetailPage = () => {
                 )}
               </div>
 
-              {/* Thumbnails if there are more than 1 image */}
-              {images2d.length > 1 && (
-                <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-thin">
-                  {images2d.map((imgUrl: string, idx: number) => {
-                    const isPdfThumbnail = imgUrl.toLowerCase().includes('.pdf');
-                    return (
-                      <button
-                        key={idx}
-                        onClick={() => setActive2dIndex(idx)}
-                        className={`w-20 h-16 rounded-lg overflow-hidden shrink-0 border-2 transition-all relative cursor-pointer ${
-                          active2dIndex === idx
-                            ? 'border-[#472404] shadow-sm'
-                            : 'border-stone-200/60 opacity-60 hover:opacity-100'
-                        }`}
-                      >
-                        {isPdfThumbnail ? (
-                          <div className="w-full h-full bg-stone-100 flex flex-col items-center justify-center text-[#472404]">
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                            </svg>
-                            <span className="text-[9px] font-bold">PDF #{idx + 1}</span>
-                          </div>
-                        ) : (
-                          <img
-                            src={getProxyUrl(imgUrl)}
-                            alt={`Thumbnail ${idx + 1}`}
-                            className="w-full h-full object-cover"
-                          />
-                        )}
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
-
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-5 bg-stone-50 rounded-xl border border-stone-200">
-                <div className="text-center sm:text-left">
+                <div>
                   <span className="font-bold text-stone-900 text-sm block mb-0.5">Buka Resolusi Penuh</span>
                   <span className="text-stone-500 text-xs">Lihat detail ukuran skala gambar kerja 2D pada tab baru browser Anda.</span>
                 </div>
                 <a
-                  href={`/view-2d/${product.id}?index=${active2dIndex}`}
+                  href={`/view-2d/${product.id}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 border border-[#472404] text-[#472404] hover:bg-[#472404] hover:text-white text-xs font-bold px-5 py-2.5 rounded-lg transition-all cursor-pointer whitespace-nowrap w-full sm:w-auto"
+                  className="inline-flex items-center justify-center gap-2 border border-[#472404] text-[#472404] hover:bg-[#472404] hover:text-white text-xs font-bold px-5 py-2.5 rounded-lg transition-all cursor-pointer whitespace-nowrap"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -449,7 +378,7 @@ const ProductDetailPage = () => {
           )}
 
           {/* Empty visualization placeholder if nothing is set */}
-          {!product.desain3d && images2d.length === 0 && (
+          {!product.desain3d && !product.desain2d && (
             <div className="w-full aspect-[16/10] bg-stone-100 rounded-xl flex items-center justify-center text-stone-400 text-sm border border-stone-200">
               Visualisasi rancangan sedang dalam proses penyusunan.
             </div>
@@ -457,18 +386,24 @@ const ProductDetailPage = () => {
         </div>
 
         {/* CTA Footer Block */}
-        <div className="mt-2 bg-[#472404] text-[#FAF9F7] rounded-2xl p-8 sm:p-12 text-center shadow-lg border border-stone-850">
-          <h3 className="font-extrabold text-xl sm:text-2xl mb-3 text-white">Konsultasikan Ruang Impian Anda</h3>
-          <p className="text-stone-300 text-sm sm:text-base max-w-xl mx-auto mb-8 font-medium leading-relaxed">
-            Hubungi kami sekarang dan dapatkan konsultasi desain gratis serta layanan survei lokasi tanpa biaya!
+        <div className="mt-16 pt-12 border-t border-stone-100 text-center">
+          <p className="text-stone-500 text-sm sm:text-base max-w-xl mx-auto mb-8 font-medium">
+            Hubungi kami sekarang dan dapatkan konsultasi gratis serta survei lokasi tanpa biaya!
           </p>
-          <div className="flex justify-center">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <button
+              onClick={() => handleWATanya('konsultasi')}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1ebd5a] text-white text-sm font-bold px-8 py-3.5 rounded-full shadow-md hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5 cursor-pointer"
+            >
+              <WhatsAppIcon className="w-5 h-5" />
+              <span>Konsultasi Gratis Sekarang</span>
+            </button>
             <button
               onClick={() => handleWATanya('order')}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white hover:bg-stone-100 text-[#472404] text-sm font-bold px-8 py-3.5 rounded-full shadow-md hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5 cursor-pointer border-0"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-[#472404] text-[#472404] hover:bg-[#472404] hover:text-white text-sm font-bold px-8 py-3.5 rounded-full shadow-md hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5 cursor-pointer bg-transparent"
             >
               <PhoneIcon className="w-4 h-4" />
-              <span>Hubungi Marketing Kami</span>
+              <span>Hubungi Sekarang</span>
             </button>
           </div>
         </div>
