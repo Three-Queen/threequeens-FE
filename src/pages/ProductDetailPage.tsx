@@ -240,9 +240,10 @@ const ProductDetailPage = () => {
       {/* Main Content Area */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-20 pt-3 sm:pt-4 pb-0 flex flex-col gap-6">
 
-        {/* Title Block with Floating WhatsApp */}
-        <div className="bg-white rounded-2xl border border-stone-200/40 shadow-sm p-6 sm:p-8 flex flex-col md:flex-row md:items-start justify-between gap-6">
-          <div className="flex-grow">
+        {/* Title & Description Unified Card */}
+        <div className="bg-white rounded-2xl border border-stone-200/40 shadow-sm p-6 sm:p-8">
+          {/* Top Header Section */}
+          <div className="mb-6">
             {/* Category Subtags */}
             <p className="text-stone-400 text-[13px] md:text-sm font-medium tracking-wide mb-1.5">
               {getCategoryTags(product.category)}
@@ -257,35 +258,35 @@ const ProductDetailPage = () => {
               {product.price || 'Rp -'}
             </p>
           </div>
-        </div>
 
-        {/* Deskripsi Produk Section */}
-        <div className="bg-white rounded-2xl border border-stone-200/40 shadow-sm p-6 sm:p-8">
-          <h2 className="font-extrabold text-[#111827] text-lg md:text-xl mb-4">Deskripsi Produk</h2>
-          <div className="text-stone-600 text-sm md:text-base leading-relaxed text-justify mb-6">
-            <p className="whitespace-pre-line inline">
-              {displayedDesc}
-            </p>
-            {shouldTruncate && (
-              <button
-                onClick={() => setIsDescExpanded(!isDescExpanded)}
-                className="text-[#472404] hover:text-[#5C3A1E] font-bold text-sm ml-1.5 cursor-pointer inline transition-colors"
-              >
-                {isDescExpanded ? ' tampilkan lebih sedikit' : ' tampilkan lebih banyak'}
-              </button>
-            )}
-          </div>
-
-          {/* Timeline Proyek Inline inside Description Card */}
-          <div className="border-t border-stone-100 pt-5 flex items-center gap-3">
-            <div className="w-10 h-10 bg-[#472404]/5 text-[#472404] rounded-xl flex items-center justify-center shrink-0">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
+          {/* Description Section */}
+          <div className="border-t border-stone-100 pt-6">
+            <h2 className="font-extrabold text-[#111827] text-lg md:text-xl mb-4">Deskripsi Produk</h2>
+            <div className="text-stone-600 text-sm md:text-base leading-relaxed text-justify mb-6">
+              <p className="whitespace-pre-line inline">
+                {displayedDesc}
+              </p>
+              {shouldTruncate && (
+                <button
+                  onClick={() => setIsDescExpanded(!isDescExpanded)}
+                  className="text-[#472404] hover:text-[#5C3A1E] font-bold text-sm ml-1.5 cursor-pointer inline transition-colors"
+                >
+                  {isDescExpanded ? ' tampilkan lebih sedikit' : ' tampilkan lebih banyak'}
+                </button>
+              )}
             </div>
-            <div>
-              <span className="text-stone-400 text-[11px] sm:text-xs uppercase tracking-wide block mb-0.5">Timeline Pengerjaan</span>
-              <span className="font-bold text-stone-800 text-sm sm:text-base">{product.pengerjaan || '4 Bulan'}</span>
+
+            {/* Timeline Proyek Inline */}
+            <div className="border-t border-stone-100 pt-5 flex items-center gap-3">
+              <div className="w-10 h-10 bg-[#472404]/5 text-[#472404] rounded-xl flex items-center justify-center shrink-0">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <span className="text-stone-400 text-[11px] sm:text-xs uppercase tracking-wide block mb-0.5">Timeline Pengerjaan</span>
+                <span className="font-bold text-stone-800 text-sm sm:text-base">{product.pengerjaan || '4 Bulan'}</span>
+              </div>
             </div>
           </div>
         </div>
