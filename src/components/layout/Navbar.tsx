@@ -1,15 +1,25 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { NAV_ITEMS } from '../../constants';
 import { useScrolled, useSmoothScroll } from '../../hooks';
 import logoImg from '../../assets/images/Logo.png';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('#beranda');
+  const [isMobileTentangOpen, setIsMobileTentangOpen] = useState(false);
+  const [isMobileLayananOpen, setIsMobileLayananOpen] = useState(false);
   const isScrolled = useScrolled(60);
   const { scrollTo } = useSmoothScroll();
   const location = useLocation();
+
+  useEffect(() => {
+    if (['#tentang', '#kontak'].includes(activeSection)) {
+      setIsMobileTentangOpen(true);
+    }
+    if (['#layanan', '#produk', '#alur'].includes(activeSection)) {
+      setIsMobileLayananOpen(true);
+    }
+  }, [activeSection]);
 
   useEffect(() => {
     // If not on the homepage, highlight the appropriate section active
@@ -98,22 +108,120 @@ const Navbar = () => {
           </button>
 
 
-          <div className="hidden md:flex items-center gap-8">
-            {NAV_ITEMS.map((item) => {
-              const isActive = activeSection === item.href;
-              return (
-                <button
-                  key={item.href}
-                  onClick={() => handleNavClick(item.href)}
-                  className={`text-[15px] cursor-pointer whitespace-nowrap pb-1 transition-all duration-200 border-b-2 ${isActive
-                      ? 'font-bold text-[#472404] border-[#472404]'
-                      : 'font-medium text-[#472404] border-transparent hover:text-[#472404]'
-                    }`}
+          <div className="hidden md:flex items-center gap-8 ml-auto mr-8">
+            {/* Beranda */}
+            <button
+              onClick={() => handleNavClick('#beranda')}
+              className={`text-[15px] cursor-pointer whitespace-nowrap pb-1 transition-all duration-200 border-b-2 ${
+                activeSection === '#beranda'
+                  ? 'font-bold text-[#472404] border-[#472404]'
+                  : 'font-medium text-[#472404] border-transparent hover:text-[#472404]'
+              }`}
+            >
+              Beranda
+            </button>
+
+            {/* Tentang Dropdown */}
+            <div className="relative group py-2">
+              <button
+                className={`text-[15px] cursor-pointer whitespace-nowrap pb-1 transition-all duration-200 border-b-2 flex items-center gap-1.5 ${
+                  ['#tentang', '#kontak'].includes(activeSection)
+                    ? 'font-bold text-[#472404] border-[#472404]'
+                    : 'font-medium text-[#472404] border-transparent hover:text-[#472404]'
+                }`}
+              >
+                <span>Tentang</span>
+                <svg 
+                  className="w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-180 text-[#472404]" 
+                  fill="none" 
+                  viewBox="0 0 24 24" 
+                  stroke="currentColor" 
+                  strokeWidth={2.5}
                 >
-                  {item.label}
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              {/* Dropdown Box */}
+              <div className="absolute left-0 mt-1.5 w-52 bg-white border border-stone-100 rounded-xl shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-200 transform translate-y-2 group-hover:translate-y-0 z-50 py-2">
+                <button
+                  onClick={() => handleNavClick('#tentang')}
+                  className={`w-full text-left px-4 py-2.5 text-[14px] font-medium transition-colors ${
+                    activeSection === '#tentang' ? 'text-[#472404] bg-stone-50 font-semibold' : 'text-stone-600 hover:text-[#472404] hover:bg-stone-50'
+                  }`}
+                >
+                  Tentang Kami
                 </button>
-              );
-            })}
+                <button
+                  onClick={() => handleNavClick('#kontak')}
+                  className={`w-full text-left px-4 py-2.5 text-[14px] font-medium transition-colors ${
+                    activeSection === '#kontak' ? 'text-[#472404] bg-stone-50 font-semibold' : 'text-stone-600 hover:text-[#472404] hover:bg-stone-50'
+                  }`}
+                >
+                  Hubungi Kami (Kontak)
+                </button>
+              </div>
+            </div>
+
+            {/* Layanan Dropdown */}
+            <div className="relative group py-2">
+              <button
+                className={`text-[15px] cursor-pointer whitespace-nowrap pb-1 transition-all duration-200 border-b-2 flex items-center gap-1.5 ${
+                  ['#layanan', '#produk', '#alur'].includes(activeSection)
+                    ? 'font-bold text-[#472404] border-[#472404]'
+                    : 'font-medium text-[#472404] border-transparent hover:text-[#472404]'
+                }`}
+              >
+                <span>Layanan</span>
+                <svg 
+                  className="w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-180 text-[#472404]" 
+                  fill="none" 
+                  viewBox="0 0 24 24" 
+                  stroke="currentColor" 
+                  strokeWidth={2.5}
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              {/* Dropdown Box */}
+              <div className="absolute left-0 mt-1.5 w-52 bg-white border border-stone-100 rounded-xl shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-200 transform translate-y-2 group-hover:translate-y-0 z-50 py-2">
+                <button
+                  onClick={() => handleNavClick('#layanan')}
+                  className={`w-full text-left px-4 py-2.5 text-[14px] font-medium transition-colors ${
+                    activeSection === '#layanan' ? 'text-[#472404] bg-stone-50 font-semibold' : 'text-stone-600 hover:text-[#472404] hover:bg-stone-50'
+                  }`}
+                >
+                  Layanan Kami
+                </button>
+                <button
+                  onClick={() => handleNavClick('#produk')}
+                  className={`w-full text-left px-4 py-2.5 text-[14px] font-medium transition-colors ${
+                    activeSection === '#produk' ? 'text-[#472404] bg-stone-50 font-semibold' : 'text-stone-600 hover:text-[#472404] hover:bg-stone-50'
+                  }`}
+                >
+                  Produk Kami
+                </button>
+                <button
+                  onClick={() => handleNavClick('#alur')}
+                  className={`w-full text-left px-4 py-2.5 text-[14px] font-medium transition-colors ${
+                    activeSection === '#alur' ? 'text-[#472404] bg-stone-50 font-semibold' : 'text-stone-600 hover:text-[#472404] hover:bg-stone-50'
+                  }`}
+                >
+                  Alur Pesanan
+                </button>
+              </div>
+            </div>
+
+            {/* Portofolio */}
+            <button
+              onClick={() => handleNavClick('#portfolio')}
+              className={`text-[15px] cursor-pointer whitespace-nowrap pb-1 transition-all duration-200 border-b-2 ${
+                activeSection === '#portfolio'
+                  ? 'font-bold text-[#472404] border-[#472404]'
+                  : 'font-medium text-[#472404] border-transparent hover:text-[#472404]'
+              }`}
+            >
+              Portofolio
+            </button>
           </div>
 
 
@@ -148,23 +256,135 @@ const Navbar = () => {
 
         {/* ── Mobile Dropdown Menu ── */}
         {isMenuOpen && (
-          <div className="md:hidden border-t border-stone-100 bg-white pb-4">
-            <div className="flex flex-col py-3 px-2 gap-1">
-              {NAV_ITEMS.map((item) => {
-                const isActive = activeSection === item.href;
-                return (
-                  <button
-                    key={item.href}
-                    onClick={() => handleNavClick(item.href)}
-                    className={`text-left py-3 px-4 rounded-md transition-colors duration-200 text-[15px] ${isActive
-                        ? 'font-bold text-[#472404] bg-amber-50'
-                        : 'font-medium text-[#472404] hover:text-[#472404] hover:bg-amber-50/50'
-                      }`}
+          <div className="md:hidden border-t border-stone-100 bg-white pb-4 max-h-[85vh] overflow-y-auto">
+            <div className="flex flex-col py-3 px-3 gap-1">
+              
+              {/* Beranda */}
+              <button
+                onClick={() => handleNavClick('#beranda')}
+                className={`text-left py-2.5 px-4 rounded-md transition-colors duration-200 text-[15px] ${
+                  activeSection === '#beranda'
+                    ? 'font-bold text-[#472404] bg-amber-50'
+                    : 'font-medium text-[#472404] hover:bg-amber-50/20'
+                }`}
+              >
+                Beranda
+              </button>
+
+              {/* Tentang Group */}
+              <div className="space-y-1">
+                <button
+                  onClick={() => setIsMobileTentangOpen(!isMobileTentangOpen)}
+                  className={`w-full text-left py-2.5 px-4 rounded-md transition-colors duration-200 text-[15px] flex items-center justify-between ${
+                    ['#tentang', '#kontak'].includes(activeSection)
+                      ? 'font-bold text-[#472404]'
+                      : 'font-medium text-[#472404]'
+                  }`}
+                >
+                  <span>Tentang</span>
+                  <svg 
+                    className={`w-4 h-4 transition-transform duration-200 text-[#472404] ${isMobileTentangOpen ? 'rotate-180' : ''}`} 
+                    fill="none" 
+                    viewBox="0 0 24 24" 
+                    stroke="currentColor"
                   >
-                    {item.label}
-                  </button>
-                );
-              })}
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {isMobileTentangOpen && (
+                  <div className="pl-4 space-y-1 border-l border-stone-200 ml-4 py-1">
+                    <button
+                      onClick={() => handleNavClick('#tentang')}
+                      className={`w-full text-left py-2 px-4 rounded-md transition-colors duration-200 text-[14px] ${
+                        activeSection === '#tentang'
+                          ? 'font-bold text-[#472404] bg-amber-50/50'
+                          : 'font-medium text-stone-600 hover:bg-stone-50'
+                      }`}
+                    >
+                      Tentang Kami
+                    </button>
+                    <button
+                      onClick={() => handleNavClick('#kontak')}
+                      className={`w-full text-left py-2 px-4 rounded-md transition-colors duration-200 text-[14px] ${
+                        activeSection === '#kontak'
+                          ? 'font-bold text-[#472404] bg-amber-50/50'
+                          : 'font-medium text-stone-600 hover:bg-stone-50'
+                      }`}
+                    >
+                      Hubungi Kami (Kontak)
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              {/* Layanan Group */}
+              <div className="space-y-1">
+                <button
+                  onClick={() => setIsMobileLayananOpen(!isMobileLayananOpen)}
+                  className={`w-full text-left py-2.5 px-4 rounded-md transition-colors duration-200 text-[15px] flex items-center justify-between ${
+                    ['#layanan', '#produk', '#alur'].includes(activeSection)
+                      ? 'font-bold text-[#472404]'
+                      : 'font-medium text-[#472404]'
+                  }`}
+                >
+                  <span>Layanan</span>
+                  <svg 
+                    className={`w-4 h-4 transition-transform duration-200 text-[#472404] ${isMobileLayananOpen ? 'rotate-180' : ''}`} 
+                    fill="none" 
+                    viewBox="0 0 24 24" 
+                    stroke="currentColor"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {isMobileLayananOpen && (
+                  <div className="pl-4 space-y-1 border-l border-stone-200 ml-4 py-1">
+                    <button
+                      onClick={() => handleNavClick('#layanan')}
+                      className={`w-full text-left py-2 px-4 rounded-md transition-colors duration-200 text-[14px] ${
+                        activeSection === '#layanan'
+                          ? 'font-bold text-[#472404] bg-amber-50/50'
+                          : 'font-medium text-stone-600 hover:bg-stone-50'
+                      }`}
+                    >
+                      Layanan Kami
+                    </button>
+                    <button
+                      onClick={() => handleNavClick('#produk')}
+                      className={`w-full text-left py-2 px-4 rounded-md transition-colors duration-200 text-[14px] ${
+                        activeSection === '#produk'
+                          ? 'font-bold text-[#472404] bg-amber-50/50'
+                          : 'font-medium text-stone-600 hover:bg-stone-50'
+                      }`}
+                    >
+                      Produk Kami
+                    </button>
+                    <button
+                      onClick={() => handleNavClick('#alur')}
+                      className={`w-full text-left py-2 px-4 rounded-md transition-colors duration-200 text-[14px] ${
+                        activeSection === '#alur'
+                          ? 'font-bold text-[#472404] bg-amber-50/50'
+                          : 'font-medium text-stone-600 hover:bg-stone-50'
+                      }`}
+                    >
+                      Alur Pesanan
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              {/* Portofolio */}
+              <button
+                onClick={() => handleNavClick('#portfolio')}
+                className={`text-left py-2.5 px-4 rounded-md transition-colors duration-200 text-[15px] ${
+                  activeSection === '#portfolio'
+                    ? 'font-bold text-[#472404] bg-amber-50'
+                    : 'font-medium text-[#472404] hover:bg-amber-50/20'
+                }`}
+              >
+                Portofolio
+              </button>
+
               <button
                 onClick={() => handleNavClick('#kontak')}
                 className="mt-3 flex items-center justify-center gap-2 bg-[#472404] text-white py-2.5 px-5 rounded-md text-[15px] font-medium"
