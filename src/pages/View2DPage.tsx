@@ -1,22 +1,57 @@
-import { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useLandingData } from '../context/LandingDataContext';
 import { ArrowLeftIcon } from '../components/ui/Icons';
 import logoImg from '../assets/images/Logo.png';
 import SEO from '../components/SEO';
 
+const parse2DImages = (desain2d: any): string[] => {
+  if (!desain2d) return [];
+  if (Array.isArray(desain2d)) {
+    return desain2d.map(item => String(item).trim());
+  }
+  const trimmed = String(desain2d).trim();
+  if (trimmed.startsWith('[') && trimmed.endsWith(']')) {
+    try {
+      const parsed = JSON.parse(trimmed);
+      if (Array.isArray(parsed)) {
+        return parsed.map(item => String(item).trim());
+      }
+    } catch (e) {
+      // ignore
+    }
+  }
+  if (trimmed.includes(',')) {
+    return trimmed.split(',').map(item => item.trim()).filter(Boolean);
+  }
+  return [trimmed];
+};
+
 const View2DPage = () => {
   const { id } = useParams<{ id: string }>();
   const { data, loading } = useLandingData();
   const navigate = useNavigate();
+  const { search } = useLocation();
 
   const product = data.products.find((p) => p.id === Number(id));
+
+  // Determine active index from query parameter
+  const queryParams = new URLSearchParams(search);
+  const indexParam = queryParams.get('index');
+  const initialIndex = indexParam ? parseInt(indexParam, 10) : 0;
+  const [activeIndex, setActiveIndex] = useState(initialIndex);
 
   // Zoom and Pan States
   const [scale, setScale] = useState(1);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+
+  // Reset zoom & pan position whenever active page changes
+  useEffect(() => {
+    setScale(1);
+    setPosition({ x: 0, y: 0 });
+  }, [activeIndex]);
 
   const getProxyUrl = (url: string) => {
     if (!url) return '';
@@ -121,7 +156,10 @@ const View2DPage = () => {
     );
   }
 
-  if (!product || !product.desain2d) {
+  const images2d = parse2DImages(product?.desain2d);
+  const active2dImage = images2d[activeIndex] || '';
+
+  if (!product || !active2dImage) {
     return (
       <div className="min-h-screen bg-stone-950 text-stone-200 flex flex-col items-center justify-center p-6 text-center">
         <h2 className="text-2xl font-bold text-white mb-2">Dokumen Tidak Ditemukan</h2>
@@ -130,7 +168,7 @@ const View2DPage = () => {
         </p>
         <button
           onClick={handleBack}
-          className="bg-[#472404] hover:bg-[#5C3A1E] text-white px-6 py-2.5 rounded-full font-semibold transition-colors"
+          className="bg-[#472404] hover:bg-[#5C3A1E] text-white px-6 py-2.5 rounded-full font-semibold transition-colors cursor-pointer"
         >
           Kembali
         </button>
@@ -138,7 +176,7 @@ const View2DPage = () => {
     );
   }
 
-  const isPdf = product.desain2d.toLowerCase().includes('.pdf');
+  const isPdf = active2dImage.toLowerCase().includes('.pdf');
 
   return (
     <div className="h-screen w-screen bg-stone-950 text-white flex items-center justify-center select-none overflow-hidden relative p-4 sm:p-8">
@@ -150,7 +188,7 @@ const View2DPage = () => {
       {/* Floating Back Button */}
       <button
         onClick={handleBack}
-        className="absolute top-4 left-4 z-40 flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/10 backdrop-blur-md transition-all duration-200 hover:scale-105 active:scale-95 group shadow-lg"
+        className="absolute top-4 left-4 z-40 flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/10 backdrop-blur-md transition-all duration-200 hover:scale-105 active:scale-95 group shadow-lg cursor-pointer"
         title="Kembali"
       >
         <ArrowLeftIcon className="w-5 h-5 transform group-hover:-translate-x-0.5 transition-transform" />
@@ -160,7 +198,7 @@ const View2DPage = () => {
       {isPdf ? (
         <div className="w-full h-full max-w-5xl max-h-[90vh] bg-stone-900/40 rounded-xl border border-stone-800/40 overflow-hidden shadow-2xl z-10">
           <iframe
-            src={getProxyUrl(product.desain2d)}
+            src={getProxyUrl(active2dImage)}
             title="Preview Gambar Kerja PDF"
             className="w-full h-full border-none"
           />
@@ -185,7 +223,7 @@ const View2DPage = () => {
           <div className="relative shadow-2xl rounded-xl overflow-hidden border border-stone-800/40 bg-stone-900/40 max-w-5xl max-h-[90vh] flex items-center justify-center">
             {/* Real image tag to preserve intrinsic dimensions */}
             <img
-              src={getProxyUrl(product.desain2d)}
+              src={getProxyUrl(active2dImage)}
               alt={product.title}
               className="max-w-full max-h-[90vh] object-contain select-none block pointer-events-none"
               draggable={false}
@@ -218,12 +256,43 @@ const View2DPage = () => {
         </div>
       )}
 
+      {/* Floating Page Navigator (if there are multiple 2D images) */}
+      {images2d.length > 1 && (
+        <div className="absolute bottom-6 left-6 z-40 bg-white/10 border border-white/10 backdrop-blur-md rounded-2xl p-2 flex items-center gap-2 shadow-lg">
+          <button
+            onClick={() => setActiveIndex(prev => Math.max(0, prev - 1))}
+            disabled={activeIndex === 0}
+            className="w-10 h-10 flex items-center justify-center rounded-xl bg-stone-900/60 hover:bg-stone-850 disabled:opacity-40 disabled:hover:bg-stone-900/60 text-stone-200 hover:text-white transition-colors cursor-pointer"
+            title="Halaman Sebelumnya"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          
+          <span className="text-xs font-bold px-2 text-stone-200 min-w-[70px] text-center select-none">
+            Hal. {activeIndex + 1} / {images2d.length}
+          </span>
+
+          <button
+            onClick={() => setActiveIndex(prev => Math.min(images2d.length - 1, prev + 1))}
+            disabled={activeIndex === images2d.length - 1}
+            className="w-10 h-10 flex items-center justify-center rounded-xl bg-stone-900/60 hover:bg-stone-850 disabled:opacity-40 disabled:hover:bg-stone-900/60 text-stone-200 hover:text-white transition-colors cursor-pointer"
+            title="Halaman Selanjutnya"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+      )}
+
       {/* Floating Zoom Controls */}
       {!isPdf && (
         <div className="absolute bottom-6 right-6 z-40 bg-white/10 border border-white/10 backdrop-blur-md rounded-2xl p-2 flex items-center gap-2 shadow-lg">
           <button
             onClick={handleZoomOut}
-            className="w-10 h-10 flex items-center justify-center rounded-xl bg-stone-900/60 hover:bg-stone-850 text-stone-200 hover:text-white transition-colors"
+            className="w-10 h-10 flex items-center justify-center rounded-xl bg-stone-900/60 hover:bg-stone-850 text-stone-200 hover:text-white transition-colors cursor-pointer"
             title="Zoom Out"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
@@ -237,7 +306,7 @@ const View2DPage = () => {
 
           <button
             onClick={handleZoomIn}
-            className="w-10 h-10 flex items-center justify-center rounded-xl bg-stone-900/60 hover:bg-stone-850 text-stone-200 hover:text-white transition-colors"
+            className="w-10 h-10 flex items-center justify-center rounded-xl bg-stone-900/60 hover:bg-stone-850 text-stone-200 hover:text-white transition-colors cursor-pointer"
             title="Zoom In"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
@@ -247,7 +316,7 @@ const View2DPage = () => {
 
           <button
             onClick={handleReset}
-            className="w-10 h-10 flex items-center justify-center rounded-xl bg-stone-900/60 hover:bg-stone-850 text-stone-200 hover:text-white transition-colors border-l border-white/5 pl-2"
+            className="w-10 h-10 flex items-center justify-center rounded-xl bg-stone-900/60 hover:bg-stone-850 text-stone-200 hover:text-white transition-colors border-l border-white/5 pl-2 cursor-pointer"
             title="Reset"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">

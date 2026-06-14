@@ -86,7 +86,7 @@ const App = () => {
             <img 
               src={logoImg} 
               alt="Three Queens Logo" 
-              className="h-16 sm:h-20 w-auto object-contain mb-8 animate-splash-logo" 
+              className="h-16 w-16 sm:h-20 sm:w-20 object-contain mb-8 animate-splash-logo" 
             />
             
             {/* Minimalist horizontal progress line */}

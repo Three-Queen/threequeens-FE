@@ -60,7 +60,7 @@ const Footer = () => {
             <img
               src={logoImg}
               alt="Three Queens Logo"
-              className="h-28 w-auto object-contain"
+              className="h-28 w-28 object-contain"
             />
             {/* <span className="text-xs font-bold tracking-[0.2em] text-[#472404] uppercase text-center">
               THREE QUEENS

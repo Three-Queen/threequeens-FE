@@ -6,7 +6,7 @@ export const Skeleton: React.FC<{ className?: string }> = ({ className = '' }) =
 
 export const ProductCardSkeleton = () => {
   return (
-    <div className="bg-white border border-[#E5E7EB] flex flex-col rounded-sm animate-pulse">
+    <div className="bg-white border border-[#E5E7EB] flex flex-col rounded-sm animate-pulse h-full">
       {/* Image Area */}
       <div className="w-full aspect-[4/3] bg-stone-200" />
 
@@ -38,7 +38,7 @@ export const ProductCardSkeleton = () => {
 
 export const ProjectCardSkeleton = () => {
   return (
-    <div className="bg-white border border-[#E5E7EB] flex flex-col rounded-sm animate-pulse">
+    <div className="bg-white border border-[#E5E7EB] flex flex-col rounded-sm animate-pulse h-full">
       {/* Image Area */}
       <div className="w-full aspect-[4/3] bg-stone-200" />
 

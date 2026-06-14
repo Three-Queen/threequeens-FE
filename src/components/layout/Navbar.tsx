@@ -90,7 +90,7 @@ const Navbar = () => {
             <img
               src={logoImg}
               alt="Three Queens Logo"
-              className="h-9 w-auto object-contain"
+              className="h-9 w-9 object-contain"
             />
             <span className="font-extrabold text-[1.2rem] text-[#472404] tracking-tight">
               ThreeQueen's

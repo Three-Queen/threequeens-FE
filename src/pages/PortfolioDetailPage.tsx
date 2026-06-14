@@ -78,7 +78,7 @@ const PortfolioDetailPage = () => {
     : descText;
 
   return (
-    <div className="pt-[60px] pb-24 bg-white min-h-screen">
+    <div className="pt-[60px] pb-12 bg-[#FAF9F7] min-h-screen">
       <SEO 
         title={`${project.title} - Portofolio Interior`}
         description={project.description ? (project.description.length > 155 ? project.description.slice(0, 155) + '...' : project.description) : `Lihat hasil pengerjaan desain interior ${project.title} di ${project.location} oleh Three Queen's Interior.`}
@@ -86,7 +86,7 @@ const PortfolioDetailPage = () => {
         image={project.image}
       />
       {/* Banner / Hero Image (Full Width directly below navbar) */}
-      <div className="w-full h-[250px] sm:h-[350px] md:h-[480px] lg:h-[540px] bg-stone-100 overflow-hidden relative">
+      <div className="w-full h-[250px] sm:h-[300px] md:h-[380px] lg:h-[440px] bg-stone-100 overflow-hidden relative">
         {/* Floating Back Button */}
         <Link
           to="/portofolio"
@@ -108,10 +108,10 @@ const PortfolioDetailPage = () => {
       </div>
 
       {/* Main Content Area */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-20 pt-6 md:pt-8 pb-10 md:pb-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-20 pt-3 sm:pt-4 pb-0 flex flex-col gap-6">
         
         {/* Title Block */}
-        <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-8">
+        <div className="bg-white rounded-2xl border border-stone-200/40 shadow-sm p-6 sm:p-8 flex flex-col md:flex-row md:items-start justify-between gap-6">
           <div className="flex-grow">
             {/* Category Tag */}
             <p className="text-stone-400 text-[13px] md:text-sm font-semibold uppercase tracking-wider mb-2">
@@ -125,20 +125,20 @@ const PortfolioDetailPage = () => {
         </div>
 
         {/* Project Info Block */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 p-4 sm:p-6 bg-stone-50 rounded-xl border border-stone-200/60 mb-10">
-          <div>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 p-6 sm:p-8 bg-white rounded-2xl border border-stone-200/40 shadow-sm divide-y divide-stone-200/40 sm:divide-y-0">
+          <div className="pb-3.5 sm:pb-0">
             <span className="text-stone-400 text-[10px] sm:text-xs uppercase tracking-wide block mb-1">Lokasi</span>
             <span className="font-bold text-stone-900 text-sm md:text-base flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-1.5">
               <span className="line-clamp-1">{project.location}</span>
             </span>
           </div>
-          <div>
+          <div className="py-3.5 sm:py-0">
             <span className="text-stone-400 text-[10px] sm:text-xs uppercase tracking-wide block mb-1">Waktu Proyek</span>
             <span className="font-bold text-stone-900 text-sm md:text-base line-clamp-1">
               {project.waktuPengerjaan ? new Date(project.waktuPengerjaan).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' }) : '-'}
             </span>
           </div>
-          <div>
+          <div className="pt-3.5 sm:pt-0">
             <span className="text-stone-400 text-[10px] sm:text-xs uppercase tracking-wide block mb-1">Durasi</span>
             <span className="font-bold text-stone-900 text-sm md:text-base line-clamp-1">
               {project.durasiPengerjaan || '-'}
@@ -147,7 +147,7 @@ const PortfolioDetailPage = () => {
         </div>
 
         {/* Deskripsi Proyek Section */}
-        <div className="mt-10 border-t border-stone-100 pt-8">
+        <div className="bg-white rounded-2xl border border-stone-200/40 shadow-sm p-6 sm:p-8">
           <h2 className="font-extrabold text-[#111827] text-lg md:text-xl mb-4">Detail Proyek</h2>
           <div className="text-stone-600 text-sm md:text-base leading-relaxed text-justify">
             <p className="whitespace-pre-line inline">
@@ -166,7 +166,7 @@ const PortfolioDetailPage = () => {
 
         {/* Galeri Tambahan */}
         {project.galeri && project.galeri.length > 0 && (
-          <div className="mt-10 border-t border-stone-100 pt-8">
+          <div className="bg-white rounded-2xl border border-stone-200/40 shadow-sm p-6 sm:p-8">
             <h2 className="font-extrabold text-[#111827] text-lg md:text-xl mb-6">Galeri Tambahan</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {project.galeri.map((g, idx) => (
@@ -180,9 +180,9 @@ const PortfolioDetailPage = () => {
 
         {/* Produk Terkait */}
         {project.produk && project.produk.length > 0 && (
-          <div className="mt-10 border-t border-stone-100 pt-8">
-            <h2 className="font-extrabold text-[#111827] text-lg md:text-xl mb-6">Produk yang Terkait</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="mt-4">
+            <h2 className="font-extrabold text-[#111827] text-lg md:text-xl mb-6 pl-2">Produk yang Terkait</h2>
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               {project.produk.map((prod: any, idx: number) => {
                 const mappedProduct = {
                   id: idx,
@@ -199,21 +199,15 @@ const PortfolioDetailPage = () => {
         )}
 
         {/* CTA Footer Block */}
-        <div className="mt-16 pt-12 border-t border-stone-100 text-center">
-          <p className="text-stone-500 text-sm sm:text-base max-w-xl mx-auto mb-8 font-medium">
+        <div className="mt-2 bg-[#472404] text-[#FAF9F7] rounded-2xl p-8 sm:p-12 text-center shadow-lg border border-stone-850">
+          <h3 className="font-extrabold text-xl sm:text-2xl mb-3 text-white">Wujudkan Desain Ruangan Impian Anda</h3>
+          <p className="text-stone-300 text-sm sm:text-base max-w-2xl mx-auto mb-8 font-medium leading-relaxed">
             Tertarik dengan rancangan interior atau furniture kustom seperti proyek ini? Konsultasikan ruang impian Anda bersama desainer kami sekarang!
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button
-              onClick={() => handleWATanya('konsultasi')}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1ebd5a] text-white text-sm font-bold px-8 py-3.5 rounded-full shadow-md hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5 cursor-pointer"
-            >
-              <WhatsAppIcon className="w-5 h-5" />
-              <span>Konsultasi Desain Serupa</span>
-            </button>
+          <div className="flex justify-center">
             <button
               onClick={() => handleWATanya('order')}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-[#472404] text-[#472404] hover:bg-[#472404] hover:text-white text-sm font-bold px-8 py-3.5 rounded-full shadow-md hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5 cursor-pointer bg-transparent"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white hover:bg-stone-100 text-[#472404] text-sm font-bold px-8 py-3.5 rounded-full shadow-md hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5 cursor-pointer border-0"
             >
               <PhoneIcon className="w-4 h-4" />
               <span>Hubungi Marketing Kami</span>
