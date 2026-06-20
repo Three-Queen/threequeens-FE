@@ -56,9 +56,9 @@ const PortfolioDetailPage = () => {
   if (!project) {
     return (
       <div className="py-32 bg-white min-h-screen flex flex-col items-center justify-center text-center px-6">
-        <h2 className="text-3xl font-extrabold text-stone-900 mb-2">Proyek Tidak Ditemukan</h2>
+        <h2 className="text-3xl font-extrabold text-stone-900 mb-2">Project Tidak Ditemukan</h2>
         <p className="text-stone-500 mb-8 max-w-md">
-          Maaf, portofolio proyek yang Anda cari tidak tersedia atau telah dihapus dari sistem kami.
+          Maaf, portofolio project yang Anda cari tidak tersedia atau telah dihapus dari sistem kami.
         </p>
         <Link
           to="/portofolio"
@@ -71,7 +71,7 @@ const PortfolioDetailPage = () => {
     );
   }
 
-  const descText = project.description || 'Deskripsi detail proyek pengerjaan interior custom ini belum tersedia.';
+  const descText = project.description || 'Deskripsi detail project pengerjaan interior custom ini belum tersedia.';
   const shouldTruncate = descText.length > 250;
   const displayedDesc = shouldTruncate && !isDescExpanded 
     ? descText.slice(0, 250) + '...' 
@@ -133,7 +133,7 @@ const PortfolioDetailPage = () => {
             </span>
           </div>
           <div className="py-3.5 sm:py-0">
-            <span className="text-stone-400 text-[10px] sm:text-xs uppercase tracking-wide block mb-1">Waktu Proyek</span>
+            <span className="text-stone-400 text-[10px] sm:text-xs uppercase tracking-wide block mb-1">Waktu Project</span>
             <span className="font-bold text-stone-900 text-sm md:text-base line-clamp-1">
               {project.waktuPengerjaan ? new Date(project.waktuPengerjaan).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' }) : '-'}
             </span>
@@ -148,7 +148,7 @@ const PortfolioDetailPage = () => {
 
         {/* Deskripsi Proyek Section */}
         <div className="bg-white rounded-2xl border border-stone-200/40 shadow-sm p-6 sm:p-8">
-          <h2 className="font-extrabold text-[#111827] text-lg md:text-xl mb-4">Detail Proyek</h2>
+          <h2 className="font-extrabold text-[#111827] text-lg md:text-xl mb-4">Detail Project</h2>
           <div className="text-stone-600 text-sm md:text-base leading-relaxed text-justify">
             <p className="whitespace-pre-line inline">
               {displayedDesc}
@@ -202,7 +202,7 @@ const PortfolioDetailPage = () => {
         <div className="mt-2 bg-[#472404] text-[#FAF9F7] rounded-2xl p-8 sm:p-12 text-center shadow-lg border border-stone-850">
           <h3 className="font-extrabold text-xl sm:text-2xl mb-3 text-white">Wujudkan Desain Ruangan Impian Anda</h3>
           <p className="text-stone-300 text-sm sm:text-base max-w-2xl mx-auto mb-8 font-medium leading-relaxed">
-            Tertarik dengan rancangan interior atau furniture kustom seperti proyek ini? Konsultasikan ruang impian Anda bersama desainer kami sekarang!
+            Tertarik dengan rancangan interior atau furniture kustom seperti project ini? Konsultasikan ruang impian Anda bersama desainer kami sekarang!
           </p>
           <div className="flex justify-center">
             <button
