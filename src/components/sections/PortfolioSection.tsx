@@ -21,8 +21,8 @@ const PortfolioSection = () => {
         {/* Section Header */}
         <div data-aos="fade-down">
           <SectionHeader
-            title="Portofolio Proyek"
-            subtitle="Setiap proyek adalah hasil kolaborasi dengan pelanggan untuk mencapai ruang impian mereka"
+            title="Portofolio Project"
+            subtitle="Setiap project adalah hasil kolaborasi dengan pelanggan untuk mencapai ruang impian mereka"
           />
         </div>
 
