@@ -4,6 +4,7 @@ import { useLandingData } from '../context/LandingDataContext';
 import { ArrowLeftIcon } from '../components/ui/Icons';
 import logoImg from '../assets/images/Logo.png';
 import SEO from '../components/SEO';
+import { getProxyUrl } from '../utils/url';
 
 const parse2DImages = (desain2d: any): string[] => {
   if (!desain2d) return [];
@@ -52,21 +53,6 @@ const View2DPage = () => {
     setScale(1);
     setPosition({ x: 0, y: 0 });
   }, [activeIndex]);
-
-  const getProxyUrl = (url: string) => {
-    if (!url) return '';
-    if (url.startsWith('http://127.0.0.1:8000') || url.startsWith('http://localhost:8000')) {
-      const matches = url.match(/(?:127\.0\.0\.1|localhost):8000(\/.*)/i);
-      if (matches && matches[1]) {
-        return matches[1];
-      }
-    }
-    const apiBase = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
-    if (url.startsWith(apiBase)) {
-      return url.substring(apiBase.length);
-    }
-    return url;
-  };
 
   // Navigation Handler (closes tab if target="_blank", otherwise navigates back)
   const handleBack = () => {

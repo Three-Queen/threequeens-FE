@@ -1,4 +1,5 @@
 import { useLandingData } from '../../context/LandingDataContext';
+import { getProxyUrl } from '../../utils/url';
 
 // ============================================================
 // Tentang Kami Section
@@ -17,21 +18,6 @@ const TentangSection = () => {
   const missionItems = tentang.misi
     ? tentang.misi.split('\n').map(item => item.replace(/^[•\-\*]\s*/, '').trim()).filter(Boolean)
     : [];
-
-  const getProxyUrl = (url: string | null) => {
-    if (!url) return '';
-    if (url.startsWith('http://127.0.0.1:8000') || url.startsWith('http://localhost:8000')) {
-      const matches = url.match(/(?:127\.0\.0\.1|localhost):8000(\/.*)/i);
-      if (matches && matches[1]) {
-        return matches[1];
-      }
-    }
-    const apiBase = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
-    if (url.startsWith(apiBase)) {
-      return url.substring(apiBase.length);
-    }
-    return url;
-  };
 
   return (
     <section id="tentang" className="pt-10 pb-16 bg-white relative z-20">

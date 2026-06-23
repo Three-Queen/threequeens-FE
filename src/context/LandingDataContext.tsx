@@ -124,7 +124,7 @@ export const LandingDataProvider: React.FC<{ children: React.ReactNode }> = ({ c
           const mappedPortfolios: Project[] = apiData.portfolios.map((item: any) => {
             const titleLower = (item.nama_proyek || '').toLowerCase();
             let category = 'Living Room'; // Default fallback
-            
+
             if (titleLower.includes('kitchen')) {
               category = 'Kitchen Set';
             } else if (titleLower.includes('living') || titleLower.includes('keluarga') || titleLower.includes('studio')) {
@@ -181,7 +181,7 @@ export const LandingDataProvider: React.FC<{ children: React.ReactNode }> = ({ c
               title: apiData.tentang.title || 'Tentang Three Queen Interior',
               deskripsi: apiData.tentang.deskripsi || 'Three Queen’s adalah perusahaan yang bergerak di bidang desain interior dan pembuatan furniture custom yang berdiri pada 11 Januari 2023. Kami hadir untuk memberikan solusi interior yang fungsional, estetik, dan sesuai kebutuhan setiap klien, baik untuk hunian, perkantoran, maupun ruang komersial.\n\nDengan mengutamakan kualitas material, ketelitian pengerjaan, serta desain yang menyesuaikan karakter dan kebutuhan pelanggan, Three Queen’s berkomitmen menghadirkan hasil terbaik yang menggabungkan keindahan dan kenyamanan dalam setiap proyek.',
               visi: apiData.tentang.visi || 'Menjadi perusahaan interior dan furniture custom terpercaya yang menghadirkan solusi ruang berkualitas, inovatif, dan bernilai estetika tinggi.',
-              misi: apiData.tentang.misi || "Memberikan layanan terbaik kepada setiap pelanggan.\nMenghasilkan produk interior dan furniture yang berkualitas.\nMengutamakan kepuasan pelanggan dalam setiap proyek.\nMengembangkan desain yang inovatif dan fungsional.\nMenjaga profesionalisme dan integritas dalam setiap pekerjaan.",
+              misi: apiData.tentang.misi || "Memberikan layanan terbaik kepada setiap pelanggan.\nMenghasilkan produk interior dan furniture yang berkualitas.\nMengutamakan kepuasan pelanggan dalam setiap project.\nMengembangkan desain yang inovatif dan fungsional.\nMenjaga profesionalisme dan integritas dalam setiap pekerjaan.",
               gambar1: apiData.tentang.gambar1,
               gambar2: apiData.tentang.gambar2,
             },
