@@ -29,32 +29,52 @@ const Footer = () => {
   };
 
   const waLink = `https://wa.me/${formatWA(kontak.whatsapp)}?text=Halo%20Three%20Queens%2C%20saya%20ingin%20konsultasi%20furniture%20%26%20interior.`;
-  const mapsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(kontak.lokasi)}`;
-  const emailLink = `mailto:${kontak.email}`;
+  const emailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${kontak.email}`;
 
   const contactInfo = [
-    { icon: <LocationIcon className="w-4 h-4 text-[#7a5c3a]" />, value: kontak.lokasi, href: mapsLink },
+    { icon: <LocationIcon className="w-4 h-4 text-[#7a5c3a]" />, value: kontak.lokasi },
     { icon: <PhoneIcon className="w-4 h-4 text-[#7a5c3a]" />, value: kontak.whatsapp, href: waLink },
     { icon: <EmailIcon className="w-4 h-4 text-[#7a5c3a]" />, value: kontak.email, href: emailLink },
     { icon: <ClockIcon className="w-4 h-4 text-[#7a5c3a]" />, value: kontak.jam_kerja },
   ];
 
-
+  const formatSocialLink = (platform: 'facebook' | 'instagram' | 'tiktok', value: string | null) => {
+    if (!value) return '#';
+    let val = value.trim();
+    if (!val || val === '#') return '#';
+    
+    if (val.startsWith('http://') || val.startsWith('https://')) {
+      return val;
+    }
+    
+    if (platform === 'instagram') {
+      const username = val.startsWith('@') ? val.slice(1) : val;
+      return `https://instagram.com/${username}`;
+    }
+    if (platform === 'facebook') {
+      return `https://facebook.com/${val}`;
+    }
+    if (platform === 'tiktok') {
+      const username = val.startsWith('@') ? val : `@${val}`;
+      return `https://www.tiktok.com/${username}`;
+    }
+    return val;
+  };
 
   const socialLinks = [
     {
       label: 'Facebook',
-      href: kontak.facebook || '#',
+      href: formatSocialLink('facebook', kontak.facebook),
       icon: <FacebookIcon className="w-4 h-4" />,
     },
     {
       label: 'Instagram',
-      href: kontak.instagram || '#',
+      href: formatSocialLink('instagram', kontak.instagram),
       icon: <InstagramIcon className="w-4 h-4" />,
     },
     {
       label: 'TikTok',
-      href: '#',
+      href: formatSocialLink('tiktok', kontak.tiktok),
       icon: <TikTokIcon className="w-4 h-4" />,
     },
   ];

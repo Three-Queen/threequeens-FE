@@ -18,14 +18,12 @@ const KontakSection = () => {
   };
 
   const waLink = `https://wa.me/${formatWA(kontak.whatsapp)}?text=Halo%20Three%20Queens%2C%20saya%20ingin%20konsultasi%20furniture%20%26%20interior.`;
-  const mapsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(kontak.lokasi)}`;
-  const emailLink = `mailto:${kontak.email}`;
+  const emailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${kontak.email}`;
 
   const contactInfo = [
     {
       icon: <LocationIcon className="w-4 h-4 text-[#472404]" />,
       value: kontak.lokasi,
-      href: mapsLink,
     },
     {
       icon: <PhoneIcon className="w-4 h-4 text-[#472404]" />,
