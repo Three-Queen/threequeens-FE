@@ -14,7 +14,7 @@ const TentangSection = () => {
 
   // Parse dynamic Visi & Misi from database if available
   const visionText = tentang.visi || 'Menjadi perusahaan interior dan furniture custom terpercaya yang menghadirkan solusi ruang berkualitas, inovatif, dan bernilai estetika tinggi.';
-  const missionItems = tentang.misi 
+  const missionItems = tentang.misi
     ? tentang.misi.split('\n').map(item => item.replace(/^[•\-\*]\s*/, '').trim()).filter(Boolean)
     : [];
 
@@ -36,7 +36,7 @@ const TentangSection = () => {
   return (
     <section id="tentang" className="pt-10 pb-16 bg-white relative z-20">
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-20">
-        
+
         {/* Section Header (Centered) */}
         <div className="text-center mb-6 sm:mb-8" data-aos="fade-down">
           <h2 className="text-3xl sm:text-[2.25rem] font-bold text-[#1a1a1a] mb-2 tracking-tight">
@@ -54,7 +54,7 @@ const TentangSection = () => {
             <h3 className="text-2xl sm:text-[2rem] font-bold text-[#1a1a1a] leading-tight">
               Kami Menciptakan<br />Ruangan Impian Anda!
             </h3>
-            
+
             {/* Description content stays directly below the title */}
             <div className="space-y-3 text-stone-600 text-[14px] sm:text-[14.5px] leading-relaxed text-justify">
               {loading ? (
@@ -148,7 +148,7 @@ const TentangSection = () => {
                   </p>
                   <p className="flex items-start gap-2">
                     <span className="text-[#472404] font-bold mt-0.5">•</span>
-                    <span>Mengutamakan kepuasan pelanggan dalam setiap proyek.</span>
+                    <span>Mengutamakan kepuasan pelanggan dalam setiap project.</span>
                   </p>
                 </div>
                 <div className="space-y-3">
