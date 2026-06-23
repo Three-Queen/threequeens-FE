@@ -1,4 +1,5 @@
 import type { Project } from '../../types';
+import { getProxyUrl } from '../../utils/url';
 
 interface ProjectCardProps {
   project: Project;
@@ -20,7 +21,7 @@ export const ProjectCard = ({ project, idx = 0, onClick }: ProjectCardProps) => 
       <div className="w-full aspect-[4/3] bg-stone-100 flex items-center justify-center overflow-hidden relative">
         {project.image ? (
           <img
-            src={project.image}
+            src={getProxyUrl(project.image)}
             alt={project.title}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />

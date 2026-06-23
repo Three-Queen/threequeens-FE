@@ -18,19 +18,24 @@ const KontakSection = () => {
   };
 
   const waLink = `https://wa.me/${formatWA(kontak.whatsapp)}?text=Halo%20Three%20Queens%2C%20saya%20ingin%20konsultasi%20furniture%20%26%20interior.`;
+  const mapsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(kontak.lokasi)}`;
+  const emailLink = `mailto:${kontak.email}`;
 
   const contactInfo = [
     {
       icon: <LocationIcon className="w-4 h-4 text-[#472404]" />,
       value: kontak.lokasi,
+      href: mapsLink,
     },
     {
       icon: <PhoneIcon className="w-4 h-4 text-[#472404]" />,
       value: kontak.whatsapp,
+      href: waLink,
     },
     {
       icon: <EmailIcon className="w-4 h-4 text-[#472404]" />,
       value: kontak.email,
+      href: emailLink,
     },
     {
       icon: <ClockIcon className="w-4 h-4 text-[#472404]" />,
@@ -96,12 +101,28 @@ const KontakSection = () => {
             <div className="border-t border-[#472404] w-2/3" />
             <div className="space-y-2">
               <h4 className="text-base font-bold text-[#1a1a1a] mb-4">Hubungi Kami</h4>
-              {contactInfo.map((info, i) => (
-                <div key={i} className="flex items-start gap-3 text-sm text-[#472404]">
-                  <span className="mt-0.5 shrink-0">{info.icon}</span>
+              {contactInfo.map((info, i) => {
+                const content = (
                   <span className="leading-snug whitespace-pre-line">{info.value}</span>
-                </div>
-              ))}
+                );
+                return (
+                  <div key={i} className="flex items-start gap-3 text-sm text-[#472404]">
+                    <span className="mt-0.5 shrink-0">{info.icon}</span>
+                    {info.href ? (
+                      <a
+                        href={info.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:underline hover:text-[#6A3607] transition-colors duration-200"
+                      >
+                        {content}
+                      </a>
+                    ) : (
+                      content
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
 

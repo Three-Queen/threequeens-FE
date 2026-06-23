@@ -22,10 +22,20 @@ const Footer = () => {
   const { data } = useLandingData();
   const { kontak } = data;
 
+  const formatWA = (num: string) => {
+    let n = num ? num.replace(/[^0-9]/g, '') : '';
+    if (n.startsWith('0')) n = '62' + n.slice(1);
+    return n || '6281234567890';
+  };
+
+  const waLink = `https://wa.me/${formatWA(kontak.whatsapp)}?text=Halo%20Three%20Queens%2C%20saya%20ingin%20konsultasi%20furniture%20%26%20interior.`;
+  const mapsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(kontak.lokasi)}`;
+  const emailLink = `mailto:${kontak.email}`;
+
   const contactInfo = [
-    { icon: <LocationIcon className="w-4 h-4 text-[#7a5c3a]" />, value: kontak.lokasi },
-    { icon: <PhoneIcon className="w-4 h-4 text-[#7a5c3a]" />, value: kontak.whatsapp },
-    { icon: <EmailIcon className="w-4 h-4 text-[#7a5c3a]" />, value: kontak.email },
+    { icon: <LocationIcon className="w-4 h-4 text-[#7a5c3a]" />, value: kontak.lokasi, href: mapsLink },
+    { icon: <PhoneIcon className="w-4 h-4 text-[#7a5c3a]" />, value: kontak.whatsapp, href: waLink },
+    { icon: <EmailIcon className="w-4 h-4 text-[#7a5c3a]" />, value: kontak.email, href: emailLink },
     { icon: <ClockIcon className="w-4 h-4 text-[#7a5c3a]" />, value: kontak.jam_kerja },
   ];
 
@@ -98,12 +108,29 @@ const Footer = () => {
           <div className="flex flex-col gap-2.5">
             <h4 className="text-base font-bold text-[#1a1a1a]">Hubungi Kami</h4>
             <ul className="space-y-1.5">
-              {contactInfo.map((info, i) => (
-                <li key={i} className="flex items-start gap-3 text-sm text-stone-600">
-                  <span className="mt-0.5 shrink-0">{info.icon}</span>
+              {contactInfo.map((info, i) => {
+                const content = (
                   <span className="leading-snug whitespace-pre-line">{info.value}</span>
-                </li>
-              ))}
+                );
+
+                return (
+                  <li key={i} className="flex items-start gap-3 text-sm text-stone-600">
+                    <span className="mt-0.5 shrink-0">{info.icon}</span>
+                    {info.href ? (
+                      <a
+                        href={info.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-[#7a5c3a] hover:underline transition-colors duration-200"
+                      >
+                        {content}
+                      </a>
+                    ) : (
+                      content
+                    )}
+                  </li>
+                );
+              })}
             </ul>
 
             <div className="flex items-center gap-3 mt-4">

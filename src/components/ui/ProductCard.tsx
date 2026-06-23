@@ -1,6 +1,7 @@
 import type { Product } from '../../types';
 import { useLandingData } from '../../context/LandingDataContext';
 import { useNavigate } from 'react-router-dom';
+import { getProxyUrl } from '../../utils/url';
 
 interface ProductCardProps {
   product: Product;
@@ -38,7 +39,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       <div className="w-full aspect-[4/3] bg-stone-100 flex items-center justify-center overflow-hidden relative">
         {product.image ? (
           <img 
-            src={product.image} 
+            src={getProxyUrl(product.image)} 
             alt={product.title} 
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
           />

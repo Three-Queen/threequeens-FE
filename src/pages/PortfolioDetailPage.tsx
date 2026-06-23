@@ -4,6 +4,7 @@ import { useLandingData } from '../context/LandingDataContext';
 import { ArrowLeftIcon, WhatsAppIcon, PhoneIcon } from '../components/ui/Icons';
 import { ProductCard } from '../components/ui/ProductCard';
 import SEO from '../components/SEO';
+import { getProxyUrl } from '../utils/url';
 
 const PortfolioDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -98,7 +99,7 @@ const PortfolioDetailPage = () => {
 
         {project.image ? (
           <img 
-            src={project.image} 
+            src={getProxyUrl(project.image)} 
             alt={project.title} 
             className="w-full h-full object-cover" 
           />
@@ -171,7 +172,7 @@ const PortfolioDetailPage = () => {
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {project.galeri.map((g, idx) => (
                 <div key={idx} className="aspect-[4/3] rounded-xl overflow-hidden bg-stone-100 relative group shadow-sm border border-stone-200/50">
-                  <img src={g} alt={`Galeri ${idx + 1} - ${project.title}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <img src={getProxyUrl(g)} alt={`Galeri ${idx + 1} - ${project.title}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
               ))}
             </div>

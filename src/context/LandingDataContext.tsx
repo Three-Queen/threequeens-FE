@@ -89,9 +89,18 @@ export const LandingDataProvider: React.FC<{ children: React.ReactNode }> = ({ c
     const fetchData = async (isBackground = false) => {
       try {
         if (!isBackground) setLoading(true);
-        const response = await fetch(`${API_BASE_URL}/api/landing`);
+        const response = await fetch(`${API_BASE_URL}/api/landing`, {
+          headers: {
+            'Accept': 'application/json',
+            'ngrok-skip-browser-warning': 'true',
+          },
+        });
         if (!response.ok) {
           throw new Error(`Gagal mengambil data dari API: ${response.statusText}`);
+        }
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+          throw new Error('API tidak mengembalikan respon JSON. Kemungkinan terjadi error di server atau halaman peringatan Ngrok terpicu.');
         }
         const resJson = await response.json();
         if (resJson.success && resJson.data) {
@@ -227,6 +236,7 @@ export const LandingDataProvider: React.FC<{ children: React.ReactNode }> = ({ c
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
+          'ngrok-skip-browser-warning': 'true',
         },
         body: JSON.stringify(form),
       });

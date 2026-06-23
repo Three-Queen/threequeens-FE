@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { useLandingData } from '../context/LandingDataContext';
 import { ArrowLeftIcon, WhatsAppIcon, PhoneIcon } from '../components/ui/Icons';
 import SEO from '../components/SEO';
+import { getProxyUrl } from '../utils/url';
 
 declare module 'react' {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -147,20 +148,7 @@ const ProductDetailPage = () => {
     }
   };
 
-  const getProxyUrl = (url: string) => {
-    if (!url) return '';
-    if (url.startsWith('http://127.0.0.1:8000') || url.startsWith('http://localhost:8000')) {
-      const matches = url.match(/(?:127\.0\.0\.1|localhost):8000(\/.*)/i);
-      if (matches && matches[1]) {
-        return matches[1];
-      }
-    }
-    const apiBase = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
-    if (url.startsWith(apiBase)) {
-      return url.substring(apiBase.length);
-    }
-    return url;
-  };
+
 
   if (loading) {
     return (
@@ -228,7 +216,7 @@ const ProductDetailPage = () => {
 
         {product.image ? (
           <img
-            src={product.image}
+            src={getProxyUrl(product.image)}
             alt={product.title}
             className="w-full h-full object-cover"
           />
